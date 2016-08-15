@@ -2,7 +2,7 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  ICellEditorView, IEditorModel, IPosition, IEditorView
+  ICellEditorView, IEditorModel, IEditorView
 } from './view';
 
 import {
@@ -31,7 +31,7 @@ interface ICellEditorPresenter extends IDisposable {
   /**
    * A cell model associated with thie presenter.
    */
-  model: ICellModel
+  model: ICellModel;
 
   /**
    * Handles moving a cursor up.

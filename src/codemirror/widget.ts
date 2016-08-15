@@ -63,7 +63,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
   /**
    * A signal emitted when an editor is closed.
    */
-  closed: ISignal<IEditorView, void>
+  closed: ISignal<IEditorView, void>;
 
   /**
    * A signal emitted when a uri of this model changed.
@@ -113,7 +113,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
   getConfiguration(): IEditorConfiguration {
     return this;
   }
-  
+
   /**
    * Control the rendering of line numbers.
    */
@@ -130,11 +130,11 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
    * The font size.
    */
   get fontSize(): number {
-    return this.editor.defaultTextHeight(); 
+    return this.editor.defaultTextHeight();
   }
 
-  set fontSize(fontSize:number) {
-    throw new Error('TODO: Not implemented yet')
+  set fontSize(fontSize: number) {
+    throw new Error('TODO: Not implemented yet');
   }
 
   /**
@@ -144,12 +144,12 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return this.editor.getOption('readOnly') === 'nocursor';
   }
 
-  set readOnly(readOnly:boolean) {
+  set readOnly(readOnly: boolean) {
     let option = readOnly ? 'nocursor' : false;
     this.editor.setOption('readOnly', option);
     this.configurationChanged.emit(void 0);
   }
-  
+
   /**
    * The line height.
    */
@@ -157,8 +157,8 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return this.editor.defaultTextHeight();
   }
 
-  set lineHeight(lineHeight:number) {
-    throw new Error('TODO: Not implemented yet')
+  set lineHeight(lineHeight: number) {
+    throw new Error('TODO: Not implemented yet');
   }
 
   /**
@@ -175,9 +175,9 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return this._uri;
   }
 
-  set uri(uri:string) {
+  set uri(uri: string) {
     this._uri = uri;
-    loadModeByFileName(this.editor, this._uri).then((mimeType)=> {
+    loadModeByFileName(this.editor, this._uri).then(mimeType => {
       this.mimeTypeChanged.emit(void 0);
     });
     this.uriChanged.emit(void 0);
@@ -190,8 +190,8 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return this.editor.getOption('mode');
   }
 
-  set mimeType(mimeType:string) {
-    loadModeByMIME(this.editor, mimeType).then((mimeType)=> {
+  set mimeType(mimeType: string) {
+    loadModeByMIME(this.editor, mimeType).then(mimeType => {
       this.mimeTypeChanged.emit(void 0);
     });
   }
@@ -227,7 +227,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
   /**
    * Returns a content for the given line number.
    */
-  getLineContent(line:number): string {
+  getLineContent(line: number): string {
     return this.editor.getDoc().getLineHandle(line).text;
   }
 
@@ -296,7 +296,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     const coords = this.editor.charCoords(codeMirroPosition, 'page');
     return coords.left;
   }
-  
+
   /**
    * Return a top offset fot the given position.
    */
@@ -313,7 +313,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return {
       line: position.line,
       column: position.ch
-    }
+    };
   }
 
   /**
@@ -323,7 +323,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
     return {
       line: position.line,
       ch: position.column
-    }
+    };
   }
 
   /**
@@ -377,7 +377,7 @@ class CodeMirrorEditorWidget extends Widget implements EditorWidget, IEditorMode
 
   private _editor: CodeMirror.Editor = null;
   private _needsRefresh = true;
-  private _uri:string
+  private _uri: string;
 }
 
 // Define the signals for the `CodeMirrorEditorWidget` class.

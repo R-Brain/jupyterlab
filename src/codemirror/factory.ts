@@ -289,7 +289,7 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
   toggleLineNums() {
     const widget = this.tracker.currentWidget;
     if (widget) {
-      const lineNumbers = widget.getConfiguration().lineNumbers; 
+      const lineNumbers = widget.getConfiguration().lineNumbers;
       widget.getConfiguration().lineNumbers = !lineNumbers;
     }
   }
@@ -321,16 +321,10 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
    */
   toggleVim() {
     each(this.tracker.widgets, widget => {
-      widget.editor.setOption('keyMap', 'vim');
+      widget.editor.setOption('keyMap',
+                                      (widget.editor.getOption('keyMap') === 'vim'
+                                      ? 'default' : 'vim'));
     });
   }
 
-  /**
-   * Sets the editor to default editing mode
-   */
-  toggleDefault() {
-    each(this.tracker.widgets, widget => {
-      widget.editor.setOption('keyMap', 'default');
-    });
-  }
 }

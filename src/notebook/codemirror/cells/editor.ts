@@ -36,7 +36,7 @@ const DOWN_ARROW = 40;
  */
 export
 class CodeMirrorCellEditorWidget extends CodeMirrorEditorWidget implements ICellEditorWidget {
-  
+
   /**
    * Construct a new cell editor widget.
    */

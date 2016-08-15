@@ -2,7 +2,7 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  IEditorView, IEditorModel
+  IEditorView
 } from '../view';
 
 export * from '../view';
@@ -30,7 +30,7 @@ namespace IStandaloneEditorView {
    * Tests whether the given editor view is standalone.
    */
   export
-  function is(editorView:any): editorView is IStandaloneEditorView {
+  function is(editorView: any): editorView is IStandaloneEditorView {
     return IEditorView.is(editorView) && editorView.setDirty !== undefined;
   }
 

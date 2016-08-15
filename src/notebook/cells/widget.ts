@@ -38,7 +38,7 @@ import {
 } from '../output-area';
 
 import {
-  ICellEditorWidget, ICellEditorPresenter
+  ICellEditorWidget
 } from './editor';
 
 import {

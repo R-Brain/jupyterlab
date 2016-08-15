@@ -31,7 +31,7 @@ interface IStandaloneEditorPresenter extends IDisposable {
   /**
    * A document context associated with this presenter. 
    */
-  context: IDocumentContext<IDocumentModel>
+  context: IDocumentContext<IDocumentModel>;
 }
 
 /**
@@ -128,10 +128,10 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
   protected onDocumentContextChanged(context: IDocumentContext<IDocumentModel>) {
     if (context) {
       this.updatePath(context.path);
-      this.updateEditorModel(context.model)
+      this.updateEditorModel(context.model);
     } else {
       this.updatePath('');
-      this.updateEditorModel(null)
+      this.updateEditorModel(null);
     }
   }
 
@@ -229,7 +229,7 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
    * Updates dirty state.
    */
   protected updateDirty(model: IDocumentModel): void {
-    this.editorView.setDirty(model.dirty)
+    this.editorView.setDirty(model.dirty);
   }
 
   private _editorViewObserver = new PropertyObserver<IStandaloneEditorView>();

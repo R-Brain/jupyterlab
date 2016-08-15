@@ -44,7 +44,7 @@ namespace EditorWidget {
    * Tests whether the given widget is an editor widget.
    */
   export
-  function is(widget:Widget): widget is EditorWidget {
+  function is(widget: Widget): widget is EditorWidget {
     return IEditorView.is(widget);
   }
 

@@ -37,7 +37,7 @@ namespace StandaloneEditorWidget {
    * Tests whether the given widget is a standalone editor widget.
    */
   export
-  function is(widget:Widget|StandaloneEditorWidget): widget is StandaloneEditorWidget {
+  function is(widget: Widget|StandaloneEditorWidget): widget is StandaloneEditorWidget {
     return IStandaloneEditorView.is(widget) && ('presenter' in widget);
   }
 
@@ -47,7 +47,7 @@ namespace StandaloneEditorWidget {
   export
   const defaultDecoratorProvider: (editor: StandaloneEditorWidget) => IStandaloneEditorView = (editor) => {
     return new DefaultStandaloneEditorWidgetDecorator(editor);
-  }
+  };
 
   /**
    * A default standalone editor presenter provider.
@@ -55,6 +55,6 @@ namespace StandaloneEditorWidget {
   export
   const defaultPresenterProvider: (view: IStandaloneEditorView) => IStandaloneEditorPresenter = (view) => {
     return new StandaloneEditorPresenter(view);
-  }
+  };
 
 }

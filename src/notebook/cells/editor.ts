@@ -23,7 +23,7 @@ export * from './presenter';
  * A cell editor widget.
  */
 export
-  interface ICellEditorWidget extends EditorWidget, ICellEditorView {
+interface ICellEditorWidget extends EditorWidget, ICellEditorView {
   presenter: ICellEditorPresenter;
 }
 
@@ -37,7 +37,7 @@ namespace ICellEditorWidget {
    * Tests whether the given widget is a cell editor widget.
    */
   export
-    function is(widget: Widget | ICellEditorWidget): widget is ICellEditorWidget {
+  function is(widget: Widget | ICellEditorWidget): widget is ICellEditorWidget {
     return EditorWidget.is(widget) &&
       ICellEditorView.is(widget) &&
       ('presenter' in widget);

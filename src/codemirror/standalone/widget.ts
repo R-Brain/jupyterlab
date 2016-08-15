@@ -2,10 +2,6 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  loadModeByFileName
-} from '../../codemirror';
-
-import {
   CodeMirrorEditorWidget
 } from '../widget';
 
