@@ -38,8 +38,16 @@ import {
 } from '../notebook/cells';
 
 import {
-  EdgeLocation, ICellEditorWidget, ITextChange
+  ICellEditorWidget
 } from '../notebook/cells/editor';
+
+import {
+  ITextChange
+} from '../editorwidget/view';
+
+import {
+  EdgeLocation
+} from '../notebook/cells/view';
 
 import {
   mimetypeForLanguage

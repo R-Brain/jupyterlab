@@ -10,8 +10,16 @@ import {
 } from 'phosphor/lib/core/disposable';
 
 import {
-  ICellEditorWidget, ITextChange, ICompletionRequest
+  ICellEditorWidget
 } from '../notebook/cells/editor';
+
+import {
+  ICompletionRequest
+} from '../notebook/cells/view';
+
+import {
+  ITextChange
+} from '../editorwidget/view';
 
 import {
   BaseCellWidget
@@ -59,13 +67,13 @@ class CellCompleterHandler implements IDisposable {
 
     if (this._activeCell && !this._activeCell.isDisposed) {
       const editor = this._activeCell.editor;
-      editor.textChanged.disconnect(this.onTextChanged, this);
+      editor.contentChanged.disconnect(this.onTextChanged, this);
       editor.completionRequested.disconnect(this.onCompletionRequested, this);
     }
     this._activeCell = newValue;
     if (this._activeCell) {
       const editor = this._activeCell.editor as ICellEditorWidget;
-      editor.textChanged.connect(this.onTextChanged, this);
+      editor.contentChanged.connect(this.onTextChanged, this);
       editor.completionRequested.connect(this.onCompletionRequested, this);
     }
   }
