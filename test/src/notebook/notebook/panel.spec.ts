@@ -20,6 +20,14 @@ import {
 } from '../../../../lib/completer';
 
 import {
+  ICompletionRequest
+} from '../../../../lib/notebook/cells/view';
+
+import {
+  ITextChange
+} from '../../../../lib/editorwidget/view';
+
+import {
   INotebookModel
 } from '../../../../lib/notebook/notebook/model';
 

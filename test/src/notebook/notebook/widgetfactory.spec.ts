@@ -16,8 +16,8 @@ import {
 } from '../../../../lib/notebook/notebook/panel';
 
 import {
-  NotebookWidgetFactory
-} from '../../../../lib/notebook/notebook/widgetfactory';
+  DefaultNotebookWidgetFactory
+} from '../../../../lib/notebook/default/factory';
 
 import {
   Context
@@ -59,8 +59,8 @@ describe('notebook/notebook/widgetfactory', () => {
     describe('#constructor()', () => {
 
       it('should create a notebook widget factory', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer);
-        expect(factory).to.be.a(NotebookWidgetFactory);
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
+        expect(factory).to.be.a(DefaultNotebookWidgetFactory);
       });
 
     });
@@ -68,7 +68,7 @@ describe('notebook/notebook/widgetfactory', () => {
     describe('#isDisposed', () => {
 
       it('should get whether the factory has been disposed', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer);
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         expect(factory.isDisposed).to.be(false);
         factory.dispose();
         expect(factory.isDisposed).to.be(true);
@@ -79,13 +79,13 @@ describe('notebook/notebook/widgetfactory', () => {
     describe('#dispose()', () => {
 
       it('should dispose of the resources held by the factory', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         factory.dispose();
         expect(factory.isDisposed).to.be(true);
       });
 
       it('should be safe to call multiple times', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         factory.dispose();
         factory.dispose();
         expect(factory.isDisposed).to.be(true);
@@ -96,19 +96,22 @@ describe('notebook/notebook/widgetfactory', () => {
     describe('#createNew()', () => {
 
       it('should create a new `NotebookPanel` widget', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let context = createNotebookContext();
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         let panel = factory.createNew(context);
         expect(panel).to.be.a(NotebookPanel);
       });
 
       it('should create a clone of the rendermime', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let context = createNotebookContext();
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         let panel = factory.createNew(context);
         expect(panel.rendermime).to.not.be(rendermime);
       });
 
       it('should start a kernel if one is given', (done) => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let context = createNotebookContext();
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         context.kernelChanged.connect((sender, kernel) => {
           expect(kernel.name).to.be(context.kernelspecs.default);
           done();
@@ -117,7 +120,7 @@ describe('notebook/notebook/widgetfactory', () => {
       });
 
       it('should start a kernel given the default kernel language', (done) => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         createNotebookContext().then(ctx => {
           ctx.kernelChanged.connect((sender, kernel) => {
             expect(kernel.name).to.be(ctx.kernelspecs.default);
@@ -137,7 +140,7 @@ describe('notebook/notebook/widgetfactory', () => {
       // });
 
       it('should populate the default toolbar items', () => {
-        let factory = new NotebookWidgetFactory(rendermime, clipboard, renderer );
+        let factory = new DefaultNotebookWidgetFactory(rendermime, clipboard, renderer, null);
         let panel = factory.createNew(context);
         let items = panel.toolbar.list();
         expect(items).to.contain('save');

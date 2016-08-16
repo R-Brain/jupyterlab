@@ -12,12 +12,16 @@ import {
 } from '../../../lib/notebook/cells';
 
 import {
-  ICompletionRequest, ICellEditorWidget, ITextChange
+  ICompletionRequest
+} from '../../../lib/notebook/cells/view';
+
+import {
+  ICellEditorWidget
 } from '../../../lib/notebook/cells/editor';
 
 import {
-  CompleterWidget, CellCompleterHandler, CompleterModel, ICompletionPatch
-} from '../../../lib/completer';
+  ITextChange
+} from '../../../lib/editorwidget/view';
 
 import {
   CodeMirrorCodeCellWidgetRenderer
@@ -334,7 +338,7 @@ describe('completer/handler', () => {
 
         handler.activeCell = cell;
         expect(handler.methods).to.not.contain('onTextChanged');
-        cell.editor.textChanged.emit(change);
+        cell.editor.contentChanged.emit(change);
         expect(handler.methods).to.contain('onTextChanged');
       });
 
@@ -360,7 +364,7 @@ describe('completer/handler', () => {
 
         handler.activeCell = cell;
         expect(model.methods).to.not.contain('handleTextChange');
-        cell.editor.textChanged.emit(change);
+        cell.editor.contentChanged.emit(change);
         expect(model.methods).to.contain('handleTextChange');
       });
 
