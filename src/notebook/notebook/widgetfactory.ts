@@ -33,20 +33,17 @@ interface INotebookTracker extends FocusTracker<NotebookPanel> {}
 /* tslint:disable */
 export
 const INotebookTracker = new Token<INotebookTracker>('jupyter.services.notebook-handler');
-/* tslint:enable */
 
 /**
  * A widget factory for notebook panels.
  */
 export
 interface NotebookWidgetFactory extends ABCWidgetFactory<NotebookPanel, INotebookModel> {
-  tracker:INotebookTracker
+  tracker: INotebookTracker;
 }
 
-/* tslint:disable */
 /**
  * The notebook widget factory token.
  */
 export
 const NotebookWidgetFactory = new Token<NotebookWidgetFactory>('jupyter.services.notebook.factory');
-/* tslint:enable */
