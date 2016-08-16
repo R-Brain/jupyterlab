@@ -15,7 +15,7 @@ import {
 } from '../../../../lib/notebook/cells';
 
 import {
-  CompletableCodeMirrorCellEditorWidget, 
+  CompletableCodeMirrorCellEditorWidget,
   ICompletionRequest,
   ITextChange,
   EdgeLocation,
@@ -141,7 +141,7 @@ describe('notebook/cells/editor', () => {
         let listener = (sender: any, args: ITextChange) => {
           change = args;
         };
-        widget.textChanged.connect(listener);
+        widget.contentChanged.connect(listener);
 
         // CodeMirrorCellEditorWidget suppresses signals when the code mirror
         // instance's content is changed programmatically via the `setValue`
@@ -257,7 +257,7 @@ describe('notebook/cells/editor', () => {
       it('should set the cursor position of the editor', () => {
         let widget = new CompletableCodeMirrorCellEditorWidget();
         widget.presenter = new CellEditorPresenter(widget);
-        
+
         widget.presenter.model = new CellModel();
         expect(IPosition.isStartPosition(widget.position)).be(true)
 
