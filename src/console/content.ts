@@ -476,7 +476,7 @@ class ConsoleContent extends Widget {
     editor.edgeRequested.connect(this.onEdgeRequest, this);
     editor.textChanged.connect(this.onTextChange, this);
 
-    // Associate the new prompt with the completer and inspection handlers.
+    // Associate the new prompt with the completion and inspection handlers.
     this._completerHandler.activeCell = prompt;
     this._inspectionHandler.activeEditor = prompt.editor;
 

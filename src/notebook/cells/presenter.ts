@@ -133,7 +133,6 @@ class CellEditorPresenter implements ICellEditorPresenter {
   get model(): ICellModel {
     return this._modelObserver.property;
   }
-
   set model(model: ICellModel) {
     this._modelObserver.property = model;
   }
