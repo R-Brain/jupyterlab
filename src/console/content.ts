@@ -43,7 +43,7 @@ import {
 
 import {
   ITextChange
-} from '../editorwidget/view';
+} from '../notebook/completion/view';
 
 import {
   EdgeLocation
@@ -400,7 +400,10 @@ class ConsoleContent extends Widget {
         }
         this._setByHistory = true;
         prompt.model.source = value;
-        prompt.editor.setCursorPosition(0);
+        prompt.editor.position = {
+          line: 0,
+          column: 0
+        };
       });
     } else {
       this._history.forward(prompt.model.source).then(value => {
@@ -410,7 +413,7 @@ class ConsoleContent extends Widget {
         }
         this._setByHistory = true;
         prompt.model.source = text;
-        prompt.editor.setCursorPosition(text.length);
+        prompt.editor.position = prompt.editor.getModel().getPositionAt(text.length);
       });
     }
   }
@@ -475,7 +478,7 @@ class ConsoleContent extends Widget {
 
     // Associate the new prompt with the completer and inspection handlers.
     this._completerHandler.activeCell = prompt;
-    this._inspectionHandler.activeCell = prompt;
+    this._inspectionHandler.activeEditor = prompt.editor;
 
     prompt.activate();
     this.update();

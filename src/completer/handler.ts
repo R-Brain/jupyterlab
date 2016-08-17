@@ -14,12 +14,8 @@ import {
 } from '../notebook/cells/editor';
 
 import {
-  ICompletionRequest
-} from '../notebook/cells/view';
-
-import {
-  ITextChange
-} from '../editorwidget/view';
+  ICompletableEditorView, ITextChange, ICompletionRequest 
+} from '../notebook/completion/view';
 
 import {
   BaseCellWidget
@@ -66,15 +62,23 @@ class CellCompleterHandler implements IDisposable {
     }
 
     if (this._activeCell && !this._activeCell.isDisposed) {
-      const editor = this._activeCell.editor;
-      editor.contentChanged.disconnect(this.onTextChanged, this);
-      editor.completionRequested.disconnect(this.onCompletionRequested, this);
+      const editor = this._activeCell.editor as any;
+      if ((<ICompletableEditorView>editor).textChanged) {
+        editor.textChanged.disconnect(this.onTextChanged, this);
+      }
+      if ((<ICompletableEditorView>editor).completionRequested) {
+        editor.completionRequested.disconnect(this.onCompletionRequested, this);
+      }
     }
     this._activeCell = newValue;
     if (this._activeCell) {
-      const editor = this._activeCell.editor as ICellEditorWidget;
-      editor.contentChanged.connect(this.onTextChanged, this);
-      editor.completionRequested.connect(this.onCompletionRequested, this);
+      const editor = this._activeCell.editor as any;
+      if ((<ICompletableEditorView>editor).textChanged) {
+        editor.contentChanged.connect(this.onTextChanged, this);
+      }
+      if ((<ICompletableEditorView>editor).completionRequested) {
+        editor.completionRequested.connect(this.onCompletionRequested, this);
+      }
     }
   }
 
@@ -194,7 +198,7 @@ class CellCompleterHandler implements IDisposable {
     }
     let cell = this._activeCell;
     cell.model.source = patch.text;
-    cell.editor.setCursorPosition(patch.position);
+    cell.editor.position = cell.editor.getModel().getPositionAt(patch.position);
   }
 
   private _activeCell: BaseCellWidget = null;

@@ -14,8 +14,8 @@ import {
 } from '../editorwidget/widget';
 
 import {
-  StandaloneEditorDecorator
-} from '../editorwidget/standalone/widget';
+  DefaultStandaloneEditorWidgetDecorator
+} from '../editorwidget/standalone/decorator';
 
 import {
   StandaloneEditorPresenter
@@ -66,9 +66,15 @@ const COMMANDS = {
   runCode: 'editor:run-code'
 };
 
+/**
+ * A code mirror editor widget factory.
+ */
 export
 class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
 
+  /**
+   * A tracker for editor widgets created by this factory.
+   */
   tracker = new FocusTracker<CodeMirroStandaloneEditorWidget>();
 
   /**
@@ -76,10 +82,16 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
    */
   private sessionIdProperty = new AttachedProperty<EditorWidget, string>({ name: 'sessionId' });
 
+  /**
+   * Create a new factory.
+   */
   constructor(private _app: JupyterLab, private _pallete: ICommandPalette) {
     super();
   }
 
+  /**
+   * Diposes this factory.
+   */
   dispose() {
     if (this.isDisposed) {
       return;
@@ -108,7 +120,7 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
       lineNumbers: true,
       lineWrapping: true,
     });
-    const decorator = new StandaloneEditorDecorator(widget);
+    const decorator = new DefaultStandaloneEditorWidgetDecorator(widget);
     widget.presenter = new StandaloneEditorPresenter(decorator);
     widget.presenter.context = context;
 
@@ -117,6 +129,9 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
     return widget;
   }
 
+  /**
+   * Registers menu items for code mirror standalone editor.
+   */
   registerMenuItems(menu: Menu) {
     const { commands, keymap } = this._app;
 
@@ -142,6 +157,9 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
     menu.addItem({ type: 'submenu', menu: theme });
   }
 
+  /**
+   * Registers commands for code mirror standalone editor.
+   */
   registerCommands(category?: string) {
     this.registerCommand({
       id: COMMANDS.lineNumbers,
@@ -225,6 +243,9 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
     });
   }
 
+  /**
+   * Registers a commnand.
+   */
   protected registerCommand(options: {
     id: string,
     execute: () => void

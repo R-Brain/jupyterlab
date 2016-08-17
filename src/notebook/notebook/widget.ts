@@ -61,12 +61,8 @@ import {
 } from '../common/mimetype';
 
 import {
-  ICellEditorWidget
+  ICellEditorWidget, EdgeLocation
 } from '../cells/editor';
-
-import {
-  EdgeLocation 
-} from '../cells/view';
 
 import {
   INotebookModel
@@ -566,7 +562,7 @@ class Notebook extends StaticNotebook {
     // Set up the inspection handler.
     this._inspectionHandler = new InspectionHandler(this.rendermime);
     this.activeCellChanged.connect((s, cell) => {
-      this._inspectionHandler.activeCell = cell;
+      this._inspectionHandler.activeEditor = cell.editor;
     });
   }
 
@@ -913,14 +909,20 @@ class Notebook extends StaticNotebook {
       this.activeCellIndex--;
       // Move the cursor to the first position on the last line.
       if (this.activeCellIndex < prev) {
-        let lastLine = this.activeCell.editor.getLastLine();
-        this.activeCell.editor.setCursor(lastLine, 0);
+        let lastLine = this.activeCell.editor.getModel().getLastLine();
+        this.activeCell.editor.position = {
+          line: lastLine,
+          column: 0
+        };
       }
     } else {
       this.activeCellIndex++;
       // Move the cursor to the first character.
       if (this.activeCellIndex > prev) {
-        this.activeCell.editor.setCursorPosition(0);
+        this.activeCell.editor.position = {
+          line: 0,
+          column: 0
+        };
       }
     }
   }

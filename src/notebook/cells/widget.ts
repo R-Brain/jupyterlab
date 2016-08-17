@@ -38,12 +38,8 @@ import {
 } from '../output-area';
 
 import {
-  ICellEditorWidget
+  ICellEditorWidget, ICellEditorPresenter
 } from './editor';
-
-import {
-  CellEditorPresenter
-} from './presenter';
 
 import {
   ICellModel, ICodeCellModel,
@@ -184,7 +180,7 @@ class BaseCellWidget extends Widget {
       return;
     }
     this._mimetype = value;
-    this.editor.setMimeType(value);
+    this.editor.getModel().setMimeType(value);
   }
 
   /**
@@ -270,7 +266,7 @@ class BaseCellWidget extends Widget {
       return;
     }
     // Handle read only state.
-    this._editor.setReadOnly(this._readOnly);
+    this._editor.getConfiguration().readOnly = this._readOnly;
     this.toggleClass(READONLY_CLASS, this._readOnly);
   }
 
@@ -319,7 +315,7 @@ class BaseCellWidget extends Widget {
 
     // Reset the editor model and set its mode to be the default MIME type.
     this._editor.presenter.model = this._model;
-    this._editor.setMimeType(this._mimetype);
+    this._editor.getModel().setMimeType(this._mimetype);
 
     // Handle trusted cursor.
     this._trustedCursor = this._model.getMetadata('trusted');
