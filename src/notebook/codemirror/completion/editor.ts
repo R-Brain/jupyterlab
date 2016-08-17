@@ -2,6 +2,9 @@
 
 // Distributed under the terms of the Modified BSD License.
 
+import * as CodeMirror
+from 'codemirror';
+
 import {
   defineSignal, ISignal
 } from 'phosphor/lib/core/signaling';

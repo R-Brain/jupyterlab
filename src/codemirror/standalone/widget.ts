@@ -18,7 +18,7 @@ class CodeMirroStandaloneEditorWidget extends CodeMirrorEditorWidget implements 
   /**
    * An associated presenter.
    */
-  presenter:IStandaloneEditorPresenter;
+  presenter: IStandaloneEditorPresenter;
 
   /**
    * Disposes this widget.

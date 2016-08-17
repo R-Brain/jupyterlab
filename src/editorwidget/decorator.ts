@@ -28,15 +28,15 @@ class EditorViewDecorator<T extends IEditorView> implements IEditorView, IDispos
   /**
    * Test whether this decorator is disposed.
    */
-  isDisposed:boolean = false;
+  isDisposed: boolean = false;
 
   /**
    * Constructs a new decorator.
    */
-  constructor(editor:T) {
-    this._editorObserver.connect = (editor)=>this.connect(editor);
-    this._editorObserver.disconnect = (editor)=>this.disconnect(editor);
-    this._editorObserver.onChanged = (editor)=>this.decorate(editor);
+  constructor(editor: T) {
+    this._editorObserver.connect = (editor) => this.connect(editor);
+    this._editorObserver.disconnect = (editor) => this.disconnect(editor);
+    this._editorObserver.onChanged = (editor) => this.decorate(editor);
     this._editorObserver.property = editor;
   }
 
@@ -55,21 +55,21 @@ class EditorViewDecorator<T extends IEditorView> implements IEditorView, IDispos
   /**
    * Connects a decorator to the given editor.
    */
-  protected connect(editor:T) {
+  protected connect(editor: T) {
     // do nothing
   }
 
   /**
    * Decorates the given editor.
    */
-  protected decorate(editor:T) {
+  protected decorate(editor: T) {
     // do nothing
   }
 
   /**
    * Disconnects a decorator from the given editor.
    */
-  protected disconnect(editor:T) {
+  protected disconnect(editor: T) {
     // do nothing
   }
 
@@ -86,7 +86,7 @@ class EditorViewDecorator<T extends IEditorView> implements IEditorView, IDispos
     return this.editor.closed;
   }
 
-  set closed(closed:ISignal<IEditorView, void>) {
+  set closed(closed: ISignal<IEditorView, void>) {
     this.editor.closed = closed;
   }
 
@@ -94,7 +94,7 @@ class EditorViewDecorator<T extends IEditorView> implements IEditorView, IDispos
     return this.editor.position;
   }
 
-  set position(position:IPosition) {
+  set position(position: IPosition) {
     this.editor.position = position;
   }
 

@@ -6,7 +6,7 @@ import {
 } from './widget';
 
 import {
-  EditorViewDecorator, EditorWidgetDecorator, EditorWidget
+  EditorViewDecorator
 } from '../decorator';
 
 /**
@@ -14,7 +14,7 @@ import {
  */
 export
 class StandaloneEditorViewDecorator<T extends IStandaloneEditorView> extends EditorViewDecorator<T> implements IStandaloneEditorView {
-  
+
   // --- Delegate methods ---
 
   setDirty(dirty: boolean): void {
@@ -32,8 +32,8 @@ class StandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> extends 
 }
 
 /**
-  * The class name added to a standalone editor widget.
-  */
+ * The class name added to a standalone editor widget.
+ */
 const EDITOR_CLASS = 'jp-EditorWidget';
 
 /**
@@ -50,21 +50,21 @@ class DefaultStandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> e
   /**
    * Connects a decorator to the given editor.
    */
-  protected connect(editor:T) {
+  protected connect(editor: T) {
     editor.getModel().uriChanged.connect(this.onModelUriChanged, this);
   }
 
   /**
    * Disconnects a decorator from the given editor.
    */
-  protected disconnect(editor:T) {
+  protected disconnect(editor: T) {
     editor.getModel().uriChanged.disconnect(this.onModelUriChanged, this);
   }
 
   /**
    * Decorates the given editor.
    */
-  protected decorate(editor:T) {
+  protected decorate(editor: T) {
     editor.addClass(EDITOR_CLASS);
     this.updateTitleLabel(editor.getModel().uri);
   }
@@ -72,7 +72,7 @@ class DefaultStandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> e
   /**
    * Handles model uri changed events.
    */
-  protected onModelUriChanged(model:IEditorModel): void {
+  protected onModelUriChanged(model: IEditorModel): void {
     this.updateTitleLabel(model.uri);
   }
 
@@ -87,7 +87,7 @@ class DefaultStandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> e
   /**
    * Updates a title lable of the decorated editor widget.
    */
-  protected updateTitleLabel(uri:string) {
+  protected updateTitleLabel(uri: string) {
     const label = uri ? uri.split('/').pop() : 'Untitled';
     this.editor.title.label = label;
   }
@@ -95,7 +95,7 @@ class DefaultStandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> e
   /**
    * Updates a title styles of the decorated editor widget.
    */
-  protected updateTitleStyles(dirty:boolean) {
+  protected updateTitleStyles(dirty: boolean) {
     if (dirty) {
       this.editor.title.className += ` ${DIRTY_CLASS}`;
     } else {

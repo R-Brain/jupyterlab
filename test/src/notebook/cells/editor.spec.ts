@@ -41,7 +41,7 @@ class LogEditorWidget extends CompletableCodeMirrorCellEditorWidget {
   constructor() {
     super();
     const presenter = new LogCellEditorPresenter(this);
-    presenter.methods = this.methods; 
+    presenter.methods = this.methods;
     this.presenter = presenter;
   }
 

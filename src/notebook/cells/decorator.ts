@@ -27,7 +27,7 @@ class CellEditorViewDecorator<T extends ICellEditorView> extends EditorViewDecor
     return this.editor.edgeRequested;
   }
 
-  set edgeRequested(edgeRequested:ISignal<ICellEditorView, EdgeLocation>) {
+  set edgeRequested(edgeRequested: ISignal<ICellEditorView, EdgeLocation>) {
     this.editor.edgeRequested = edgeRequested;
   }
 
@@ -55,7 +55,7 @@ class DefaultCellEditorWidgetDecorator<T extends ICellEditorWidget> extends Cell
   /**
    * Decorates the given editor.
    */
-  protected decorate(editor:T) {
+  protected decorate(editor: T) {
     editor.addClass(CELL_EDITOR_CLASS);
   }
 

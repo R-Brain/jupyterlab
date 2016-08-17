@@ -108,7 +108,6 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
   get context(): IDocumentContext<IDocumentModel> {
     return this._contextObserver.property;
   }
-
   set context(context: IDocumentContext<IDocumentModel>) {
     this._contextObserver.property = context;
   }
@@ -148,7 +147,7 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
    * Handles path changed events.
    */
   protected onPathChanged(context: IDocumentContext<IDocumentModel>) {
-    this.updatePath(context.path);
+    this.updateUri(context.path);
   }
 
   /**
@@ -223,6 +222,13 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
    */
   protected createEditorModelUri(path: string) {
     return path;
+  }
+
+  /**
+   * Updates an uri.
+   */
+  protected updateUri(uri: string): void {
+    this.editorView.getModel().uri = uri;
   }
 
   /**

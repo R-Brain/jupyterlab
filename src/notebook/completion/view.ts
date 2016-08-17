@@ -135,7 +135,7 @@ namespace ICompletableEditorView {
    * Tests whether the given view is an completable editor view.
    */
   export
-  function is(editorView:any): editorView is ICompletableEditorView {
+  function is(editorView: any): editorView is ICompletableEditorView {
     return IEditorView.is(editorView) &&
       ('textChanged' in editorView) &&
       ('completionRequested' in editorView);
