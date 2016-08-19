@@ -60,7 +60,7 @@ namespace EditorWidget {
   abstract class Factory extends ABCWidgetFactory<EditorWidget, IDocumentModel> {
 
     /**
-     * An editor tracker for editors bcreated by this factory.
+     * An editor tracker for editors created by this factory.
      */
     tracker: Tracker;
 
