@@ -1,6 +1,9 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
+import * as CodeMirror
+  from 'codemirror';
+
 import {
   ICellEditorWidget
 } from '../../cells/editor';
@@ -12,6 +15,10 @@ import {
 import {
   CellEditorPresenter
 } from '../../cells/presenter';
+
+import {
+  DefaultCellEditorWidgetDecorator
+} from '../../cells/decorator';
 
 import {
   CodeMirrorCellEditorWidget
@@ -101,9 +108,10 @@ namespace CodeMirrorCodeCellWidgetRenderer {
   * A default code mirror cell editor initializer.
   */
   export
-  const defaulEditorInitializer: (editor: CodeMirrorCellEditorWidget) => void = (editor)=> {
-    editor.presenter = new CellEditorPresenter(editor);
-  }
+  const defaulEditorInitializer: (editor: CodeMirrorCellEditorWidget) => void = (editor) => {
+    const decorator = new DefaultCellEditorWidgetDecorator(editor);
+    editor.presenter = new CellEditorPresenter(decorator);
+  };
 
   /**
    * A default code mirror renderer for a code cell widget.
