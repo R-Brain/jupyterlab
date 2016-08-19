@@ -14,20 +14,20 @@ class PropertyObserver<T> implements IDisposable {
   /**
    * Tests whether this observer is disposed.
    */
-  isDisposed:boolean = false;
+  isDisposed: boolean = false;
 
   /**
    * Callback to connect to a property. 
    */
-  connect:(property:T)=>void;
+  connect: (property: T) => void;
   /**
    * Callback to hande changes of a property value.
    */
-  onChanged:(property:T)=>void;
+  onChanged: (property: T) => void;
   /**
    * Callback to disconnecr from a property. 
    */
-  disconnect:(property:T)=>void; 
+  disconnect: (property: T) => void;
 
   /**
    * Dispose this observer.
@@ -52,7 +52,7 @@ class PropertyObserver<T> implements IDisposable {
     return this._property;
   }
 
-  set property(property:T) {
+  set property(property: T) {
     if (!property && !this._property || property === this._property) {
       return;
     }
@@ -65,7 +65,7 @@ class PropertyObserver<T> implements IDisposable {
   /**
    * Notify a connect callback if a property is not null. 
    */
-  protected connectTo(property:T) {
+  protected connectTo(property: T) {
     if (this.connect && property) {
       this.connect(property);
     }
@@ -74,7 +74,7 @@ class PropertyObserver<T> implements IDisposable {
   /**
    * Notify a property changed callback with a new value.  
    */
-  protected fireChanged(property:T) {
+  protected fireChanged(property: T) {
     if (this.onChanged) {
       this.onChanged(property);
     }
@@ -83,12 +83,12 @@ class PropertyObserver<T> implements IDisposable {
   /**
    * Notify a disconnect callback if a property is not null. 
    */
-  protected disconnetFrom(property:T) {
+  protected disconnetFrom(property: T) {
     if (this.disconnect && property) {
       this.disconnect(property);
     }
   }
-  
-  private _property:T = null;
+
+  private _property: T = null;
 
 }
