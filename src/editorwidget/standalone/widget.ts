@@ -20,7 +20,7 @@ export * from './view';
  */
 export
 interface StandaloneEditorWidget extends EditorWidget, IStandaloneEditorView {
-  presenter:IStandaloneEditorPresenter
+  presenter: IStandaloneEditorPresenter;
 }
 
 /**

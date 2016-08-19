@@ -36,6 +36,6 @@ namespace ICellEditorWidget {
   const defaulEditorInitializer: (editor: ICellEditorWidget) => void=(editor)=> {
     const decorator = new DefaultCellEditorWidgetDecorator(editor);
     editor.presenter = new CellEditorPresenter(decorator);
-  }
+  };
 
 }

@@ -36,7 +36,7 @@ class CodeMirrorCodeCellWidgetRenderer extends CodeCellWidget.Renderer {
     this._editorConfiguration = (options.editorConfiguration ||
       CodeMirrorCodeCellWidgetRenderer.defaultEditorConfiguration);
     this._editorInitializer = (options.editorInitializer ||
-      (editor => { /* no-op */ }));
+      ICellEditorWidget.defaulEditorInitializer);
   }
 
   /**
@@ -94,14 +94,6 @@ namespace CodeMirrorCodeCellWidgetRenderer {
       'Cmd-/': 'toggleComment',
       'Ctrl-/': 'toggleComment',
     }
-  };
-
- /**
-  * A default code mirror cell editor initializer.
-  */
-  export
-  const defaulEditorInitializer: (editor: CodeMirrorCellEditorWidget) => void = (editor)=> {
-    ICellEditorWidget.defaulEditorInitializer(editor);
   };
 
   /**
