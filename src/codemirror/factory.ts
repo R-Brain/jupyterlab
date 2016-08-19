@@ -14,12 +14,8 @@ import {
 } from '../editorwidget/widget';
 
 import {
-  DefaultStandaloneEditorWidgetDecorator
+  StandaloneEditorWidget
 } from '../editorwidget/standalone/decorator';
-
-import {
-  StandaloneEditorPresenter
-} from '../editorwidget/standalone/presenter';
 
 import {
   CodeMirroStandaloneEditorWidget
@@ -111,7 +107,7 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
     if (kernel) {
       context.changeKernel(kernel);
     }
-    const widget = new CodeMirroStandaloneEditorWidget({
+    const editor = new CodeMirroStandaloneEditorWidget({
       extraKeys: {
         'Tab': 'indentMore',
       },
@@ -120,13 +116,12 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
       lineNumbers: true,
       lineWrapping: true,
     });
-    const decorator = new DefaultStandaloneEditorWidgetDecorator(widget);
-    widget.presenter = new StandaloneEditorPresenter(decorator);
-    widget.presenter.context = context;
+    StandaloneEditorWidget.defaulEditorInitializer(editor);
+    editor.presenter.context = context;
 
-    this.widgetCreated.emit(widget);
-    this.tracker.add(widget);
-    return widget;
+    this.widgetCreated.emit(editor);
+    this.tracker.add(editor);
+    return editor;
   }
 
   /**

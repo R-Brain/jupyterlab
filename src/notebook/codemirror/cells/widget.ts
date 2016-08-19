@@ -13,14 +13,6 @@ import {
 } from '../../cells/widget';
 
 import {
-  CellEditorPresenter
-} from '../../cells/presenter';
-
-import {
-  DefaultCellEditorWidgetDecorator
-} from '../../cells/decorator';
-
-import {
   CodeMirrorCellEditorWidget
 } from './editor';
 
@@ -108,9 +100,8 @@ namespace CodeMirrorCodeCellWidgetRenderer {
   * A default code mirror cell editor initializer.
   */
   export
-  const defaulEditorInitializer: (editor: CodeMirrorCellEditorWidget) => void = (editor) => {
-    const decorator = new DefaultCellEditorWidgetDecorator(editor);
-    editor.presenter = new CellEditorPresenter(decorator);
+  const defaulEditorInitializer: (editor: CodeMirrorCellEditorWidget) => void = (editor)=> {
+    ICellEditorWidget.defaulEditorInitializer(editor);
   };
 
   /**
