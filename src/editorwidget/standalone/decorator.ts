@@ -32,13 +32,8 @@ class StandaloneEditorWidgetDecorator<T extends StandaloneEditorWidget> extends 
 }
 
 /**
-<<<<<<< HEAD
  * The class name added to a standalone editor widget.
  */
-=======
-  * The class name added to a standalone editor widget.
-  */
->>>>>>> remove mentions of code mirror from decorators
 const EDITOR_CLASS = 'jp-EditorWidget';
 
 /**
