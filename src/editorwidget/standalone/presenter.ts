@@ -227,8 +227,16 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
   /**
    * Updates an uri.
    */
-  protected updateUri(uri: string): void {
+  protected updateUri(path: string): void {
+    const uri = this.createUri(path);
     this.editorView.getModel().uri = uri;
+  }
+
+  /**
+   * Create a model uri from the given path.
+   */
+  protected createUri(path:string) {
+    return path;
   }
 
   /**
