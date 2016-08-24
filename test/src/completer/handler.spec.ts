@@ -12,21 +12,20 @@ import {
 } from '../../../lib/notebook/cells';
 
 import {
-  ICompletionRequest
-} from '../../../lib/notebook/cells/view';
+  CompletableEditorWidget, ICompletionRequest, ITextChange
+} from '../../../lib/notebook/completion/editor';
 
 import {
-  ICellEditorWidget
-} from '../../../lib/notebook/cells/editor';
-
-import {
-  ITextChange
-} from '../../../lib/editorwidget/view';
+  CompleterWidget, CellCompleterHandler, CompleterModel, ICompletionPatch
+} from '../../../lib/completer';
 
 import {
   CodeMirrorCodeCellWidgetRenderer
 } from '../../../lib/notebook/codemirror/cells/widget';
 
+import {
+  expectCompletableEditorWidget
+} from './utils';
 
 class TestCompleterModel extends CompleterModel {
   methods: string[] = [];
@@ -57,12 +56,12 @@ class TestCompleterHandler extends CellCompleterHandler {
     this.methods.push('onReply');
   }
 
-  onTextChanged(editor: ICellEditorWidget, change: ITextChange): void {
+  onTextChanged(editor: CompletableEditorWidget, change: ITextChange): void {
     super.onTextChanged(editor, change);
     this.methods.push('onTextChanged');
   }
 
-  onCompletionRequested(editor: ICellEditorWidget, request: ICompletionRequest): void {
+  onCompletionRequested(editor: CompletableEditorWidget, request: ICompletionRequest): void {
     super.onCompletionRequested(editor, request);
     this.methods.push('onCompletionRequested');
   }
@@ -338,7 +337,9 @@ describe('completer/handler', () => {
 
         handler.activeCell = cell;
         expect(handler.methods).to.not.contain('onTextChanged');
-        cell.editor.contentChanged.emit(change);
+        expectCompletableEditorWidget(cell.editor, (editor)=> {
+          editor.textChanged.emit(change);
+        });
         expect(handler.methods).to.contain('onTextChanged');
       });
 
@@ -364,7 +365,9 @@ describe('completer/handler', () => {
 
         handler.activeCell = cell;
         expect(model.methods).to.not.contain('handleTextChange');
-        cell.editor.contentChanged.emit(change);
+        expectCompletableEditorWidget(cell.editor, (editor)=> {
+          editor.textChanged.emit(change);
+        });
         expect(model.methods).to.contain('handleTextChange');
       });
 
@@ -389,7 +392,9 @@ describe('completer/handler', () => {
 
         handler.activeCell = cell;
         expect(handler.methods).to.not.contain('onCompletionRequested');
-        cell.editor.completionRequested.emit(request);
+        expectCompletableEditorWidget(cell.editor, (editor)=> {
+          editor.completionRequested.emit(request);
+        });
         expect(handler.methods).to.contain('onCompletionRequested');
       });
 
@@ -414,7 +419,9 @@ describe('completer/handler', () => {
         handler.kernel = kernel;
         handler.activeCell = cell;
         expect(handler.methods).to.not.contain('makeRequest');
-        cell.editor.completionRequested.emit(request);
+        expectCompletableEditorWidget(cell.editor, (editor)=> {
+          editor.completionRequested.emit(request);
+        });
         expect(handler.methods).to.contain('makeRequest');
       });
 

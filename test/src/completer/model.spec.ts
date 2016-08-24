@@ -8,12 +8,8 @@ import {
 } from '../../../lib/completer';
 
 import {
-  ICompletionRequest
-} from '../../../lib/notebook/cells/view';
-
-import {
-  ICoords, ITextChange
-} from '../../../lib/editorwidget/view';
+  ICompletionRequest, ICoords, ITextChange
+} from '../../../lib/notebook/completion/view';
 
 
 describe('completer/model', () => {
