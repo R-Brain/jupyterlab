@@ -14,8 +14,8 @@ import {
 } from '../notebook/cells/editor';
 
 import {
-  ICompletableEditorView, ITextChange, ICompletionRequest 
-} from '../notebook/completion/view';
+  CompletableEditorWidget, ITextChange, ICompletionRequest
+} from '../notebook/completion/editor';
 
 import {
   BaseCellWidget
@@ -62,23 +62,31 @@ class CellCompleterHandler implements IDisposable {
     }
 
     if (this._activeCell && !this._activeCell.isDisposed) {
-      const editor = this._activeCell.editor as any;
-      if ((<ICompletableEditorView>editor).textChanged) {
-        editor.textChanged.disconnect(this.onTextChanged, this);
-      }
-      if ((<ICompletableEditorView>editor).completionRequested) {
-        editor.completionRequested.disconnect(this.onCompletionRequested, this);
-      }
+      this.disconnectFromEditor(this._activeCell.editor);
     }
     this._activeCell = newValue;
     if (this._activeCell) {
-      const editor = this._activeCell.editor as any;
-      if ((<ICompletableEditorView>editor).textChanged) {
-        editor.contentChanged.connect(this.onTextChanged, this);
-      }
-      if ((<ICompletableEditorView>editor).completionRequested) {
-        editor.completionRequested.connect(this.onCompletionRequested, this);
-      }
+      this.connectToEditor(this._activeCell.editor);
+    }
+  }
+
+  /**
+   * Connects to the given editor.
+   */
+  protected connectToEditor(editor: ICellEditorWidget | CompletableEditorWidget) {
+    if (CompletableEditorWidget.is(editor)) {
+      editor.textChanged.connect(this.onTextChanged, this);
+      editor.completionRequested.connect(this.onCompletionRequested, this);
+    }
+  }
+
+  /**
+   * Disconnects from the given editor.
+   */
+  protected disconnectFromEditor(editor: ICellEditorWidget | CompletableEditorWidget) {
+    if (CompletableEditorWidget.is(editor)) {
+      editor.textChanged.disconnect(this.onTextChanged, this);
+      editor.completionRequested.disconnect(this.onCompletionRequested, this);
     }
   }
 
@@ -156,7 +164,7 @@ class CellCompleterHandler implements IDisposable {
   /**
    * Handle a text changed signal from an editor.
    */
-  protected onTextChanged(editor: ICellEditorWidget, change: ITextChange): void {
+  protected onTextChanged(editor: CompletableEditorWidget, change: ITextChange): void {
     if (!this._completer.model) {
       return;
     }
@@ -166,7 +174,7 @@ class CellCompleterHandler implements IDisposable {
   /**
    * Handle a completion requested signal from an editor.
    */
-  protected onCompletionRequested(editor: ICellEditorWidget, request: ICompletionRequest): void {
+  protected onCompletionRequested(editor: CompletableEditorWidget, request: ICompletionRequest): void {
     if (!this.kernel || !this._completer.model) {
       return;
     }

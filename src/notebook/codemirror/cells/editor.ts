@@ -13,25 +13,22 @@ import {
 } from '../../../codemirror/widget';
 
 import {
-  IChangedArgs
-} from '../../../common/interfaces';
-
-import {
-  ICellModel
-} from '../../cells/model';
-
-import {
   ICellEditorWidget, ICellEditorPresenter, EdgeLocation, ICellEditorView
 } from '../../cells/editor';
+
+export * from '../../../codemirror/widget';
+export * from '../../cells/editor';
 
 /**
  * The key code for the up arrow key.
  */
+export
 const UP_ARROW = 38;
 
 /**
  * The key code for the down arrow key.
  */
+export
 const DOWN_ARROW = 40;
 
 /**
@@ -53,7 +50,7 @@ class CodeMirrorCellEditorWidget extends CodeMirrorEditorWidget implements ICell
   /**
    * A presenter associated with this editor cell widget.
    */
-  presenter:ICellEditorPresenter
+  presenter: ICellEditorPresenter;
 
   /**
    * A signal emitted when either the top or bottom edge is requested.
@@ -71,7 +68,7 @@ class CodeMirrorCellEditorWidget extends CodeMirrorEditorWidget implements ICell
 
     if (this.presenter) {
       this.presenter.dispose();
-      this.presenter = null
+      this.presenter = null;
     }
   }
 

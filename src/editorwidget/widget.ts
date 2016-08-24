@@ -34,8 +34,19 @@ export
 interface EditorWidget extends Widget, IEditorView {
 }
 
+/**
+ * Utilities for an editor widget.
+ */
 export
 namespace EditorWidget {
+
+  /**
+   * Tests whether the given widget is an editor widget.
+   */
+  export
+  function is(widget:Widget): widget is EditorWidget {
+    return IEditorView.is(widget);
+  }
 
   /**
    * A class that tracks editor widgets.
