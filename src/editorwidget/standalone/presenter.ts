@@ -147,7 +147,7 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
    * Handles path changed events.
    */
   protected onPathChanged(context: IDocumentContext<IDocumentModel>) {
-    this.updateUri(context.path);
+    this.updatePath(context.path);
   }
 
   /**
@@ -221,21 +221,6 @@ class StandaloneEditorPresenter implements IStandaloneEditorPresenter {
    * Creates an editor model uri from the given path.
    */
   protected createEditorModelUri(path: string) {
-    return path;
-  }
-
-  /**
-   * Updates an uri.
-   */
-  protected updateUri(path: string): void {
-    const uri = this.createUri(path);
-    this.editorView.getModel().uri = uri;
-  }
-
-  /**
-   * Create a model uri from the given path.
-   */
-  protected createUri(path:string) {
     return path;
   }
 
