@@ -2,20 +2,8 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  RenderMime
-} from '../../../rendermime';
-
-import {
-  ICodeCellModel, IMarkdownCellModel, IRawCellModel
-} from '../../cells/model';
-
-import {
-  CellEditorWidget
+  ICellEditorWidget
 } from '../../cells/editor';
-
-import {
-  CodeCellWidget, MarkdownCellWidget, RawCellWidget
-} from '../../cells/widget';
 
 import {
   Notebook, NotebookRenderer
@@ -39,7 +27,7 @@ namespace CodeMirrorNotebookRenderer {
     decoratorProvider: (editor) => {
       editor.editor.setOption('matchBrackets', true);
       editor.editor.setOption('autoCloseBrackets', true);
-      return CellEditorWidget.defaultDecoratorProvider(editor);
+      return ICellEditorWidget.defaultDecoratorProvider(editor);
     }
   });
 
@@ -51,7 +39,7 @@ namespace CodeMirrorNotebookRenderer {
     decoratorProvider: (editor) => {
       // Turn on line wrapping for markdown cells.
       editor.editor.setOption('lineWrapping', true);
-      return CellEditorWidget.defaultDecoratorProvider(editor);
+      return ICellEditorWidget.defaultDecoratorProvider(editor);
     }
   });
 
@@ -63,7 +51,7 @@ namespace CodeMirrorNotebookRenderer {
     decoratorProvider: (editor) => {
       // Turn on line wrapping for markdown cells.
       editor.editor.setOption('lineWrapping', true);
-      return CellEditorWidget.defaultDecoratorProvider(editor);
+      return ICellEditorWidget.defaultDecoratorProvider(editor);
     }
   });
 
