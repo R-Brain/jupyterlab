@@ -141,7 +141,7 @@ describe('notebook/cells/editor', () => {
         let listener = (sender: any, args: ITextChange) => {
           change = args;
         };
-        widget.contentChanged.connect(listener);
+        widget.textChanged.connect(listener);
 
         // CodeMirrorCellEditorWidget suppresses signals when the code mirror
         // instance's content is changed programmatically via the `setValue`
