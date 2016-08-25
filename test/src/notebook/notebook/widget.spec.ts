@@ -171,7 +171,7 @@ describe('notebook/notebook/widget', () => {
       });
 
       it('should accept an optional render', () => {
-        let renderer = new CodeMirrorNotebookRenderer();
+        let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
         let widget = new StaticNotebook({ rendermime, renderer });
         expect(widget.renderer).to.be(renderer);
       });
@@ -491,7 +491,7 @@ describe('notebook/notebook/widget', () => {
       describe('#createCodeCell()', () => {
 
         it('should create a `CodeCellWidget`', () => {
-          let renderer = new CodeMirrorNotebookRenderer();
+          let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
           let model = new CodeCellModel();
           let widget = renderer.createCodeCell(model, rendermime);
           expect(widget).to.be.a(CodeCellWidget);
@@ -502,7 +502,7 @@ describe('notebook/notebook/widget', () => {
       describe('#createMarkdownCell()', () => {
 
         it('should create a `MarkdownCellWidget`', () => {
-          let renderer = new CodeMirrorNotebookRenderer();
+          let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
           let model = new MarkdownCellModel();
           let widget = renderer.createMarkdownCell(model, rendermime);
           expect(widget).to.be.a(MarkdownCellWidget);
@@ -513,7 +513,7 @@ describe('notebook/notebook/widget', () => {
       describe('#createRawCell()', () => {
 
         it('should create a `RawCellWidget`', () => {
-          let renderer = new CodeMirrorNotebookRenderer();
+          let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
           let model = new RawCellModel();
           let widget = renderer.createRawCell(model);
           expect(widget).to.be.a(RawCellWidget);
@@ -524,7 +524,7 @@ describe('notebook/notebook/widget', () => {
       describe('#updateCell()', () => {
 
         it('should be a no-op', () => {
-          let renderer = new CodeMirrorNotebookRenderer();
+          let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
           let model = new CodeCellModel();
           let widget = renderer.createCodeCell(model, rendermime);
           renderer.updateCell(widget);
@@ -536,7 +536,7 @@ describe('notebook/notebook/widget', () => {
       describe('#getCodeMimetype()', () => {
 
         it('should get the preferred mime for code cells in the notebook', () => {
-          let renderer = new CodeMirrorNotebookRenderer();
+          let renderer = CodeMirrorNotebookRenderer.defaultRenderer;
           let model = new NotebookModel();
           let cursor = model.getMetadata('language_info');
           cursor.setValue({ name: 'python', mimetype: 'text/x-python' });

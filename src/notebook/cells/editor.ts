@@ -23,7 +23,7 @@ export * from './presenter';
  * A cell editor widget.
  */
 export
-interface ICellEditorWidget extends EditorWidget, ICellEditorView {
+  interface ICellEditorWidget extends EditorWidget, ICellEditorView {
   presenter: ICellEditorPresenter;
 }
 
@@ -37,19 +37,26 @@ namespace ICellEditorWidget {
    * Tests whether the given widget is a cell editor widget.
    */
   export
-  function is(widget:Widget|CellEditorWidget): widget is CellEditorWidget {
+    function is(widget: Widget | ICellEditorWidget): widget is ICellEditorWidget {
     return EditorWidget.is(widget) &&
-      ICellEditorView.is(widget) && 
+      ICellEditorView.is(widget) &&
       widget.presenter !== undefined;
   }
 
   /**
-   * A default cell editor widget initializer.
+   * A default cell editor decorator provider.
    */
   export
-  const defaulEditorInitializer: (editor: ICellEditorWidget) => void=(editor)=> {
-    const decorator = new DefaultCellEditorWidgetDecorator(editor);
-    editor.presenter = new CellEditorPresenter(decorator);
+  const defaultDecoratorProvider: (editor: ICellEditorWidget) => ICellEditorView=(editor)=> {
+    return new DefaultCellEditorWidgetDecorator(editor);
+  };
+
+  /**
+   * A default cell editor presenter provider.
+   */
+  export
+  const defaulPresenterProvider: (view: ICellEditorView) => ICellEditorPresenter=(view)=> {
+    return new CellEditorPresenter(view);
   };
 
 }

@@ -121,7 +121,7 @@ describe('notebook/notebook/panel', () => {
 
 
       it('should accept an optional render', () => {
-        let newRenderer = CodeMirrorNotebookPanelRenderer.defaultRenderer;
+        let newRenderer = new NotebookPanel.Renderer(CodeMirrorNotebookPanelRenderer.defaultOptions);
         let panel = new NotebookPanel({ rendermime, clipboard, renderer: newRenderer});
         expect(panel.renderer).to.be(newRenderer);
       });
