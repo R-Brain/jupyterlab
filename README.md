@@ -56,6 +56,7 @@ If you use ``pip``, you can install it as:
 ```bash
 pip install jupyterlab
 jupyter serverextension enable --py jupyterlab --sys-prefix
+```
 
 ### Build and run the stand-alone examples
 
