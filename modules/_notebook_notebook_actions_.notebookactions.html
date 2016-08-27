@@ -1,0 +1,1181 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>NotebookActions | jupyterlab</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script src="../assets/js/modernizr.js"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.js" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">jupyterlab</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../globals.html">Globals</a>
+				</li>
+				<li>
+					<a href="_notebook_notebook_actions_.html">&quot;notebook/notebook/actions&quot;</a>
+				</li>
+				<li>
+					<a href="_notebook_notebook_actions_.notebookactions.html">NotebookActions</a>
+				</li>
+			</ul>
+			<h1>Module NotebookActions</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>A namespace for handling actions on a notebook.</p>
+					</div>
+					<h4 id="notes">Notes</h4>
+					<p>All of the actions are a no-op if there is no model on the notebook.
+						The actions set the widget <code>mode</code> to <code>&#39;command&#39;</code> unless otherwise specified.
+						The actions will preserve the selection on the notebook widget unless
+					otherwise specified.</p>
+				</div>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#changecelltype" class="tsd-kind-icon">change<wbr>Cell<wbr>Type</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#clearalloutputs" class="tsd-kind-icon">clear<wbr>All<wbr>Outputs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#clearoutputs" class="tsd-kind-icon">clear<wbr>Outputs</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#copy" class="tsd-kind-icon">copy</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#cut" class="tsd-kind-icon">cut</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#deletecells" class="tsd-kind-icon">delete<wbr>Cells</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#extendselectionabove" class="tsd-kind-icon">extend<wbr>Selection<wbr>Above</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#extendselectionbelow" class="tsd-kind-icon">extend<wbr>Selection<wbr>Below</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#insertabove" class="tsd-kind-icon">insert<wbr>Above</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#insertbelow" class="tsd-kind-icon">insert<wbr>Below</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#mergecells" class="tsd-kind-icon">merge<wbr>Cells</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#paste" class="tsd-kind-icon">paste</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#redo" class="tsd-kind-icon">redo</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#run" class="tsd-kind-icon">run</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#runall" class="tsd-kind-icon">run<wbr>All</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#runandadvance" class="tsd-kind-icon">run<wbr>And<wbr>Advance</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#runandinsert" class="tsd-kind-icon">run<wbr>And<wbr>Insert</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#selectabove" class="tsd-kind-icon">select<wbr>Above</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#selectbelow" class="tsd-kind-icon">select<wbr>Below</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#setmarkdownheader" class="tsd-kind-icon">set<wbr>Markdown<wbr>Header</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#splitcell" class="tsd-kind-icon">split<wbr>Cell</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#togglealllinenumbers" class="tsd-kind-icon">toggle<wbr>All<wbr>Line<wbr>Numbers</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#togglelinenumbers" class="tsd-kind-icon">toggle<wbr>Line<wbr>Numbers</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_notebook_notebook_actions_.notebookactions.html#undo" class="tsd-kind-icon">undo</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="changecelltype" class="tsd-anchor"></a>
+					<h3>change<wbr>Cell<wbr>Type</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">change<wbr>Cell<wbr>Type<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, value<span class="tsd-signature-symbol">: </span><a href="_notebook_notebook_nbformat_.nbformat.html#celltype" class="tsd-signature-type">CellType</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L265">notebook/notebook/actions.ts:265</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Change the selected cell type(s).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5>value: <a href="_notebook_notebook_nbformat_.nbformat.html#celltype" class="tsd-signature-type">CellType</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target cell type.</p>
+										<h4 id="notes">Notes</h4>
+										<p>It should preserve the widget mode.
+											This action can be undone.
+											The existing selection will be cleared.
+										Any cells converted to markdown will be unrendered.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="clearalloutputs" class="tsd-anchor"></a>
+					<h3>clear<wbr>All<wbr>Outputs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>All<wbr>Outputs<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L779">notebook/notebook/actions.ts:779</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clear all the code outputs on the widget.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget <code>mode</code> will be preserved.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="clearoutputs" class="tsd-anchor"></a>
+					<h3>clear<wbr>Outputs</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">clear<wbr>Outputs<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L755">notebook/notebook/actions.ts:755</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Clear the code outputs of the selected cells.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget <code>mode</code> will be preserved.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="copy" class="tsd-anchor"></a>
+					<h3>copy</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, clipboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L559">notebook/notebook/actions.ts:559</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Copy the selected cell data to a clipboard.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5>clipboard: <a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The clipboard object.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="cut" class="tsd-anchor"></a>
+					<h3>cut</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">cut<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, clipboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L588">notebook/notebook/actions.ts:588</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Cut the selected cell data to a clipboard.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5>clipboard: <a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The clipboard object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>This action can be undone.
+										A new code cell is added if all cells are cut.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="deletecells" class="tsd-anchor"></a>
+					<h3>delete<wbr>Cells</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">delete<wbr>Cells<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L173">notebook/notebook/actions.ts:173</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete the selected cells.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The cell after the last selected cell will be activated.
+											It will add a code cell if all cells are deleted.
+										This action can be undone.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="extendselectionabove" class="tsd-anchor"></a>
+					<h3>extend<wbr>Selection<wbr>Above</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">extend<wbr>Selection<wbr>Above<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L489">notebook/notebook/actions.ts:489</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Extend the selection to the cell above.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>This is a no-op if the first cell is the active cell.
+										The new cell will be activated.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="extendselectionbelow" class="tsd-anchor"></a>
+					<h3>extend<wbr>Selection<wbr>Below</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">extend<wbr>Selection<wbr>Below<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L525">notebook/notebook/actions.ts:525</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Extend the selection to the cell below.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>This is a no-op if the last cell is the active cell.
+										The new cell will be activated.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="insertabove" class="tsd-anchor"></a>
+					<h3>insert<wbr>Above</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">insert<wbr>Above<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L220">notebook/notebook/actions.ts:220</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Insert a new code cell above the active cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget mode will be preserved.
+											This action can be undone.
+											The existing selection will be cleared.
+										The new cell will the active cell.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="insertbelow" class="tsd-anchor"></a>
+					<h3>insert<wbr>Below</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">insert<wbr>Below<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L241">notebook/notebook/actions.ts:241</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Insert a new code cell below the active cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget mode will be preserved.
+											This action can be undone.
+											The existing selection will be cleared.
+										The new cell will be the active cell.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="mergecells" class="tsd-anchor"></a>
+					<h3>merge<wbr>Cells</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">merge<wbr>Cells<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L102">notebook/notebook/actions.ts:102</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Merge the selected cells.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget mode will be preserved.
+											If only one cell is selected, the next cell will be selected.
+											If the active cell is a code cell, its outputs will be cleared.
+											This action can be undone.
+											The final cell will have the same type as the active cell.
+										If the active cell is a markdown cell, it will be unrendered.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="paste" class="tsd-anchor"></a>
+					<h3>paste</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">paste<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, clipboard<span class="tsd-signature-symbol">: </span><a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L637">notebook/notebook/actions.ts:637</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Paste cells from a clipboard.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5>clipboard: <a href="../interfaces/_clipboard_index_.iclipboard.html" class="tsd-signature-type">IClipboard</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The clipboard object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The cells are pasted below the active cell.
+											The last pasted cell becomes the active cell.
+											This is a no-op if there is no cell data on the clipboard.
+										This action can be undone.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="redo" class="tsd-anchor"></a>
+					<h3>redo</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">redo<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L694">notebook/notebook/actions.ts:694</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Redo a cell action.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>This is a no-op if there are no cell actions to redo.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="run" class="tsd-anchor"></a>
+					<h3>run</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">run<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, kernel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IKernel</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L316">notebook/notebook/actions.ts:316</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Run the selected cell(s).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> kernel: <span class="tsd-signature-type">IKernel</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An optional kernel object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The last selected cell will be activated.
+											The existing selection will be cleared.
+											An execution error will prevent the remaining code cells from executing.
+										All markdown cells will be rendered.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="runall" class="tsd-anchor"></a>
+					<h3>run<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">run<wbr>All<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, kernel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IKernel</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L423">notebook/notebook/actions.ts:423</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Run all of the cells in the notebook.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> kernel: <span class="tsd-signature-type">IKernel</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An optional kernel object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The existing selection will be cleared.
+											An execution error will prevent the remaining code cells from executing.
+											All markdown cells will be rendered.
+										The last cell in the notebook will be activated.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="runandadvance" class="tsd-anchor"></a>
+					<h3>run<wbr>And<wbr>Advance</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">run<wbr>And<wbr>Advance<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, kernel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IKernel</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L365">notebook/notebook/actions.ts:365</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Run the selected cell(s) and advance to the next cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> kernel: <span class="tsd-signature-type">IKernel</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An optional kernel object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The existing selection will be cleared.
+											The cell after the last selected cell will be activated.
+											An execution error will prevent the remaining code cells from executing.
+											All markdown cells will be rendered.
+											If the last selected cell is the last cell, a new code cell
+										will be created in <code>&#39;edit&#39;</code> mode.  The new cell creation can be undone.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="runandinsert" class="tsd-anchor"></a>
+					<h3>run<wbr>And<wbr>Insert</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">run<wbr>And<wbr>Insert<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, kernel<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">IKernel</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L397">notebook/notebook/actions.ts:397</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Run the selected cell(s) and insert a new code cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> kernel: <span class="tsd-signature-type">IKernel</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An optional kernel object.</p>
+										<h4 id="notes">Notes</h4>
+										<p>An execution error will prevent the remaining code cells from executing.
+											All markdown cells will be rendered.
+											The widget mode will be set to <code>&#39;edit&#39;</code> after running.
+											The existing selection will be cleared.
+										The cell insert can be undone.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="selectabove" class="tsd-anchor"></a>
+					<h3>select<wbr>Above</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Above<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L444">notebook/notebook/actions.ts:444</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Select the above the active cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget mode will be preserved.
+											This is a no-op if the first cell is the active cell.
+										The existing selection will be cleared.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="selectbelow" class="tsd-anchor"></a>
+					<h3>select<wbr>Below</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">select<wbr>Below<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L467">notebook/notebook/actions.ts:467</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Select the cell below the active cell.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The widget mode will be preserved.
+											This is a no-op if the last cell is the active cell.
+										The existing selection will be cleared.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="setmarkdownheader" class="tsd-anchor"></a>
+					<h3>set<wbr>Markdown<wbr>Header</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Markdown<wbr>Header<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a>, level<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L808">notebook/notebook/actions.ts:808</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set the markdown header level.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+									</div>
+								</li>
+								<li>
+									<h5>level: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The header level.</p>
+										<h4 id="notes">Notes</h4>
+										<p>All selected cells will be switched to markdown.
+											The level will be clamped between 1 and 6.
+											If there is an existing header, it will be replaced.
+											There will always be one blank space after the header.
+										The cells will be unrendered.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="splitcell" class="tsd-anchor"></a>
+					<h3>split<wbr>Cell</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">split<wbr>Cell<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L62">notebook/notebook/actions.ts:62</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Split the active cell into two cells.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>It will preserve the existing mode.
+											The second cell will be activated.
+											The existing selection will be cleared.
+											The leading whitespace in the second cell will be removed.
+											If there is no content, two empty cells will be created.
+											Both cells will have the same type as the original cell.
+										This action can be undone.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="togglealllinenumbers" class="tsd-anchor"></a>
+					<h3>toggle<wbr>All<wbr>Line<wbr>Numbers</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">toggle<wbr>All<wbr>Line<wbr>Numbers<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L735">notebook/notebook/actions.ts:735</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Toggle the line number of all cells.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The original state is based on the state of the active cell.
+										The <code>mode</code> of the widget will be preserved.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="togglelinenumbers" class="tsd-anchor"></a>
+					<h3>toggle<wbr>Line<wbr>Numbers</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">toggle<wbr>Line<wbr>Numbers<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L712">notebook/notebook/actions.ts:712</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Toggle line numbers on the selected cell(s).</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>The original state is based on the state of the active cell.
+										The <code>mode</code> of the widget will be preserved.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
+					<a name="undo" class="tsd-anchor"></a>
+					<h3>undo</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
+						<li class="tsd-signature tsd-kind-icon">undo<span class="tsd-signature-symbol">(</span>widget<span class="tsd-signature-symbol">: </span><a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/jupyter/jupyterlab/blob/b6355cc/src/notebook/notebook/actions.ts#L677">notebook/notebook/actions.ts:677</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Undo a cell action.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>widget: <a href="../classes/_notebook_notebook_widget_.notebook.html" class="tsd-signature-type">Notebook</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>The target notebook widget.</p>
+										<h4 id="notes">Notes</h4>
+										<p>This is a no-op if if there are no cell actions to undo.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="../globals.html"><em>Globals</em></a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="_notebook_notebook_actions_.html">"notebook/notebook/actions"</a>
+						<ul>
+							<li class="current tsd-kind-module tsd-parent-kind-external-module">
+								<a href="_notebook_notebook_actions_.notebookactions.html">Notebook<wbr>Actions</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#changecelltype" class="tsd-kind-icon">change<wbr>Cell<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#clearalloutputs" class="tsd-kind-icon">clear<wbr>All<wbr>Outputs</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#clearoutputs" class="tsd-kind-icon">clear<wbr>Outputs</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#copy" class="tsd-kind-icon">copy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#cut" class="tsd-kind-icon">cut</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#deletecells" class="tsd-kind-icon">delete<wbr>Cells</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#extendselectionabove" class="tsd-kind-icon">extend<wbr>Selection<wbr>Above</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#extendselectionbelow" class="tsd-kind-icon">extend<wbr>Selection<wbr>Below</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#insertabove" class="tsd-kind-icon">insert<wbr>Above</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#insertbelow" class="tsd-kind-icon">insert<wbr>Below</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#mergecells" class="tsd-kind-icon">merge<wbr>Cells</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#paste" class="tsd-kind-icon">paste</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#redo" class="tsd-kind-icon">redo</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#run" class="tsd-kind-icon">run</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#runall" class="tsd-kind-icon">run<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#runandadvance" class="tsd-kind-icon">run<wbr>And<wbr>Advance</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#runandinsert" class="tsd-kind-icon">run<wbr>And<wbr>Insert</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#selectabove" class="tsd-kind-icon">select<wbr>Above</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#selectbelow" class="tsd-kind-icon">select<wbr>Below</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#setmarkdownheader" class="tsd-kind-icon">set<wbr>Markdown<wbr>Header</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#splitcell" class="tsd-kind-icon">split<wbr>Cell</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#togglealllinenumbers" class="tsd-kind-icon">toggle<wbr>All<wbr>Line<wbr>Numbers</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#togglelinenumbers" class="tsd-kind-icon">toggle<wbr>Line<wbr>Numbers</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module">
+						<a href="_notebook_notebook_actions_.notebookactions.html#undo" class="tsd-kind-icon">undo</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.io" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="../assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
