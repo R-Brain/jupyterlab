@@ -40,7 +40,7 @@ namespace ICellEditorWidget {
     function is(widget: Widget | ICellEditorWidget): widget is ICellEditorWidget {
     return EditorWidget.is(widget) &&
       ICellEditorView.is(widget) &&
-      widget.presenter !== undefined;
+      ('presenter' in widget);
   }
 
   /**
