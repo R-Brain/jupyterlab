@@ -361,7 +361,7 @@ class ConsoleContent extends Widget {
     let prompt = this.prompt;
     let model = prompt.model;
     model.source += '\n';
-    prompt.editor.position = prompt.editor.getModel().getPositionAt(model.source.length);
+    prompt.editor.position = prompt.editor.getModel().getPositionAt(model.source.length); 
   }
 
   /**
