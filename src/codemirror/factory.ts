@@ -14,12 +14,12 @@ import {
 } from '../editorwidget/widget';
 
 import {
-  FocusTracker
-} from 'phosphor/lib/ui/focustracker';
+  StandaloneEditorWidget
+} from '../editorwidget/standalone/widget';
 
 import {
-  StandaloneEditorWidget
-} from '../editorwidget/standalone/decorator';
+  FocusTracker
+} from 'phosphor/lib/ui/focustracker';
 
 import {
   CodeMirroStandaloneEditorWidget
