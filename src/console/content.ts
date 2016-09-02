@@ -361,7 +361,7 @@ class ConsoleContent extends Widget {
     let prompt = this.prompt;
     let model = prompt.model;
     model.source += '\n';
-    prompt.editor.setCursorPosition(model.source.length);
+    prompt.editor.position = prompt.editor.getModel().getPositionAt(model.source.length); 
   }
 
   /**
@@ -513,7 +513,7 @@ class ConsoleContent extends Widget {
           return;
         }
         prompt.model.source = code + isComplete.content.indent;
-        prompt.editor.setCursorPosition(prompt.model.source.length);
+        prompt.editor.position = prompt.editor.getModel().getPositionAt(prompt.model.source.length);
         resolve(false);
       }).catch(() => { resolve(true); });
     });
