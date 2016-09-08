@@ -40,7 +40,7 @@ namespace IPosition {
     if (left === null) {
       return right === null;  
     }
-    return left.line === left.line && left.column === left.column;
+    return left.line === right.line && left.column === right.column;
   }
 
   /**
