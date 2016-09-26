@@ -34,7 +34,7 @@ import {
 } from '../notebook/notebook/nbformat';
 
 import {
-  CodeCellWidget, RawCellWidget
+  CodeCellWidget, RawCellWidget, ICellModel
 } from '../notebook/cells';
 
 import {
@@ -42,7 +42,7 @@ import {
 } from '../notebook/cells/editor';
 
 import {
-  ITextChange
+  IEditorModel
 } from '../notebook/completion/view';
 
 import {
@@ -65,6 +65,9 @@ import {
   ConsoleHistory, IConsoleHistory
 } from './history';
 
+import {
+  IObservableList, ObservableList
+} from '../common/observablelist';
 
 /**
  * The class name added to console widgets.
@@ -307,6 +310,7 @@ class ConsoleContent extends Widget {
     this._session.dispose();
     this._session = null;
     this._foreignCells = null;
+    this._cells = null;
     super.dispose();
   }
 
@@ -346,11 +350,11 @@ class ConsoleContent extends Widget {
    */
   inject(code: string): void {
     // Create a new cell using the prompt renderer.
-    let cell = this._renderer.createPrompt(this._rendermime);
+    let cell = this._renderer.createPrompt(this._rendermime, this);
     cell.model.source = code;
     cell.mimetype = this._mimetype;
     cell.readOnly = true;
-    this._content.addWidget(cell);
+    this.addContentCell(cell);
     this._execute(cell);
   }
 
@@ -421,7 +425,7 @@ class ConsoleContent extends Widget {
   /**
    * Handle a text change signal from the editor.
    */
-  protected onTextChange(editor: ICellEditorWidget, args: ITextChange): void {
+  protected onContentChange(model: IEditorModel): void {
     if (this._setByHistory) {
       this._setByHistory = false;
       return;
@@ -466,15 +470,16 @@ class ConsoleContent extends Widget {
     }
 
     // Create the new prompt.
-    prompt = this._renderer.createPrompt(this._rendermime);
+    prompt = this._renderer.createPrompt(this._rendermime, this);
     prompt.mimetype = this._mimetype;
     prompt.addClass(PROMPT_CLASS);
     this._input.addWidget(prompt);
+    this._cells.add(prompt.model);
 
     // Hook up history handling.
     let editor = prompt.editor;
     editor.edgeRequested.connect(this.onEdgeRequest, this);
-    editor.textChanged.connect(this.onTextChange, this);
+    editor.getModel().contentChanged.connect(this.onContentChange, this);
 
     // Associate the new prompt with the completion and inspection handlers.
     this._completerHandler.activeCell = prompt;
@@ -488,11 +493,11 @@ class ConsoleContent extends Widget {
    * Make a new code cell for an input originated from a foreign session.
    */
   protected newForeignCell(parentMsgId: string): CodeCellWidget {
-    let cell = this._renderer.createForeignCell(this._rendermime);
+    let cell = this._renderer.createForeignCell(this._rendermime, this);
     cell.readOnly = true;
     cell.mimetype = this._mimetype;
     cell.addClass(FOREIGN_CELL_CLASS);
-    this._content.addWidget(cell);
+    this.addContentCell(cell);
     this.update();
     this._foreignCells[parentMsgId] = cell;
     return cell;
@@ -560,6 +565,24 @@ class ConsoleContent extends Widget {
     this.prompt.mimetype = this._mimetype;
   }
 
+  protected addContentCell(cell: CodeCellWidget) {
+    this._content.addWidget(cell);
+    const prompt = this.prompt;
+    const index = prompt ? this._cells.indexOf(prompt.model) : -1;
+    if (index !== -1) {
+      this._cells.insert(index, cell.model);
+    } else {
+      this._cells.add(cell.model);
+    }
+  }
+
+  /**
+   * The list of cells in the console.
+   */
+  get cells(): IObservableList<ICellModel> {
+    return this._cells;
+  }
+
   private _completer: CompleterWidget = null;
   private _completerHandler: CellCompleterHandler = null;
   private _content: Panel = null;
@@ -572,6 +595,7 @@ class ConsoleContent extends Widget {
   private _session: ISession = null;
   private _setByHistory = false;
   private _foreignCells: { [key: string]: CodeCellWidget; } = {};
+  private _cells: IObservableList<ICellModel> = new ObservableList<ICellModel>();
 }
 
 
@@ -623,12 +647,12 @@ namespace ConsoleContent {
     /**
      * Create a new prompt widget.
      */
-    createPrompt(rendermime: IRenderMime): CodeCellWidget;
+    createPrompt(rendermime: IRenderMime, context: ConsoleContent): CodeCellWidget;
 
     /**
      * Create a code cell whose input originated from a foreign session.
      */
-    createForeignCell(rendermine: IRenderMime): CodeCellWidget;
+    createForeignCell(rendermine: IRenderMime, context: ConsoleContent): CodeCellWidget;
   }
 
   /* tslint:disable */
