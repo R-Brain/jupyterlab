@@ -458,7 +458,6 @@ class ConsoleContent extends Widget {
    */
   protected newPrompt(): void {
     let prompt = this.prompt;
-    let content = this._content;
     let input = this._input;
 
     // Make the last prompt read-only, clear its signals, and move to content.
@@ -466,7 +465,8 @@ class ConsoleContent extends Widget {
       prompt.readOnly = true;
       prompt.removeClass(PROMPT_CLASS);
       clearSignalData(prompt.editor);
-      content.addWidget((input.layout as PanelLayout).removeWidgetAt(0));
+      (input.layout as PanelLayout).removeWidgetAt(0);
+      this.addContentCell(prompt);
     }
 
     // Create the new prompt.
@@ -474,7 +474,6 @@ class ConsoleContent extends Widget {
     prompt.mimetype = this._mimetype;
     prompt.addClass(PROMPT_CLASS);
     this._input.addWidget(prompt);
-    this._cells.add(prompt.model);
 
     // Hook up history handling.
     let editor = prompt.editor;
@@ -567,13 +566,7 @@ class ConsoleContent extends Widget {
 
   protected addContentCell(cell: CodeCellWidget) {
     this._content.addWidget(cell);
-    const prompt = this.prompt;
-    const index = prompt ? this._cells.indexOf(prompt.model) : -1;
-    if (index !== -1) {
-      this._cells.insert(index, cell.model);
-    } else {
-      this._cells.add(cell.model);
-    }
+    this._cells.add(cell.model);
   }
 
   /**
