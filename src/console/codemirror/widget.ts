@@ -10,7 +10,7 @@ import {
 } from '../../notebook/cells/widget';
 
 import {
-  CellEditorWidget
+  ICellEditorWidget
 } from '../../notebook/cells/editor';
 
 import {
@@ -95,7 +95,7 @@ namespace CodeMirrorConsoleRenderer {
       editor.editor.setOption('extraKeys', {
         Enter: function() { /* no-op */ }
       });
-      return CellEditorWidget.defaultDecoratorProvider(editor);
+      return ICellEditorWidget.defaultDecoratorProvider(editor);
     }
   });
 }

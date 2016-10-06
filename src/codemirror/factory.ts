@@ -42,7 +42,7 @@ import {
 } from 'phosphor/lib/algorithm/iteration';
 
 import {
-  IKernel
+  Kernel
 } from 'jupyter-js-services';
 
 import {
@@ -69,7 +69,7 @@ const THEME_PROPERTY = 'theme';
 export
 const THEMES = [
   DEFAULT_CODEMIRROR_THEME, 'default', 'abcdef', 'base16-dark', 'base16-light',
-  'hopscotch', 'material', 'mbo', 'mdn-like', 'seti', 'the-matrix', 
+  'hopscotch', 'material', 'mbo', 'mdn-like', 'seti', 'the-matrix',
   'xq-light', 'zenburn'
 ];
 
@@ -128,7 +128,7 @@ class CodeMirrorEditorWidgetFactory extends EditorWidget.Factory {
   /**
    * Create a new widget given a context.
    */
-  createNew(context: IDocumentContext<IDocumentModel>, kernel?: IKernel.IModel): EditorWidget {
+  createNew(context: IDocumentContext<IDocumentModel>, kernel?: Kernel.IModel): EditorWidget {
     if (kernel) {
       context.changeKernel(kernel);
     }

@@ -31,7 +31,7 @@ namespace IStandaloneEditorView {
    */
   export
   function is(editorView: any): editorView is IStandaloneEditorView {
-    return IEditorView.is(editorView) && editorView.setDirty !== undefined;
+    return IEditorView.is(editorView) && (editorView as IStandaloneEditorView).setDirty !== undefined;
   }
 
 }

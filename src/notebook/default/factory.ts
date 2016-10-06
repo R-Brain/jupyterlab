@@ -6,7 +6,7 @@ import {
 } from 'phosphor/lib/ui/focustracker';
 
 import {
-  IKernel
+  Kernel
 } from 'jupyter-js-services';
 
 import {
@@ -93,7 +93,7 @@ class DefaultNotebookWidgetFactory extends ABCWidgetFactory<NotebookPanel, INote
    * The factory will start the appropriate kernel and populate
    * the default toolbar items using `ToolbarItems.populateDefaults`.
    */
-  createNew(context: IDocumentContext<INotebookModel>, kernel?: IKernel.IModel): NotebookPanel {
+  createNew(context: IDocumentContext<INotebookModel>, kernel?: Kernel.IModel): NotebookPanel {
     let rendermime = this._rendermime.clone();
     if (kernel) {
       context.changeKernel(kernel);
