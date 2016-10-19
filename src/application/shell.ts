@@ -145,10 +145,10 @@ class ApplicationShell extends Widget {
 
     this.layout = rootLayout;
 
-    this._tracker = new FocusTracker<Widget>();
-    this._tracker.currentChanged.connect((sender, args) => {
+    this._dockPanel.currentChanged.connect((sender, args) => {
       if (args.newValue) {
         args.newValue.title.className += ` ${CURRENT_CLASS}`;
+        args.newValue.activate();
       }
       if (args.oldValue) {
         args.oldValue.deactivate();
@@ -216,7 +216,6 @@ class ApplicationShell extends Widget {
       return;
     }
     this._dockPanel.addWidget(widget, { mode: 'tab-after' });
-    this._tracker.add(widget);
   }
 
   /**
@@ -262,7 +261,7 @@ class ApplicationShell extends Widget {
    * Close all tracked widgets.
    */
   closeAll(): void {
-    each(this._tracker.widgets, widget => {
+    each(this._dockPanel.widgets, widget => {
       widget.close();
     });
   }
@@ -273,7 +272,6 @@ class ApplicationShell extends Widget {
   private _hsplitPanel: SplitPanel;
   private _leftHandler: SideBarHandler;
   private _rightHandler: SideBarHandler;
-  private _tracker: FocusTracker<Widget>;
 }
 
 
@@ -321,6 +319,7 @@ class SideBarHandler {
     let widget = this._findWidgetByID(id);
     if (widget) {
       this._sideBar.currentTitle = widget.title;
+      widget.activate();
     }
   }
 
