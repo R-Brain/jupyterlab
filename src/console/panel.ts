@@ -108,16 +108,16 @@ class ConsolePanel extends Panel {
     session.kernel.getSpec().then(spec => {
       let name = spec.display_name;
       return showDialog({
-        title: 'Shut down kernel?',
-        body: `Shut down ${name}?`
+        title: `Close '${name}' Console?`,
+        body: `All console state will be lost.`
       });
     }).then(value => {
       if (value && value.text === 'OK') {
-        return session.shutdown();
+        return session.shutdown().then(()=>{
+          super.onCloseRequest(msg);
+          this.dispose();
+        });
       }
-    }).then(() => {
-      super.onCloseRequest(msg);
-      this.dispose();
     });
   }
 
