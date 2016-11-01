@@ -291,6 +291,8 @@ class CreateFromHandler extends Widget {
           return widget;
         });
       }
+      this._model.deleteFile(this._orig.path);
+      this._model.refresh();
       return null;
     });
   }
