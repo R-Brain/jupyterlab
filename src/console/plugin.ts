@@ -250,7 +250,7 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
         return manager.connectTo(args.id).then(session => {
           name = session.path.split('/').pop();
           name = `Console ${name.match(CONSOLE_REGEX)[1]}`;
-          createConsole(session);
+          createConsole(session, name);
           manager.listRunning();  // Trigger a refresh.
           return session.id;
         });
@@ -265,7 +265,7 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
       path = `${path}/console-${count}-${utils.uuid()}`;
 
       // Get the kernel model.
-      return getKernel(args).then(kernel => {
+      return getKernel(args, name).then(kernel => {
         if (!kernel) {
           return;
         }
@@ -276,7 +276,7 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
           kernelId: kernel.id
         };
         return manager.startNew(options).then(session => {
-          createConsole(session);
+          createConsole(session, name);
           manager.listRunning();  // Trigger a refresh.
           return session.id;
         });
@@ -321,13 +321,13 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
   /**
    * Get the kernel given the create args.
    */
-  function getKernel(args: ICreateConsoleArgs): Promise<Kernel.IModel> {
+  function getKernel(args: ICreateConsoleArgs, name: string): Promise<Kernel.IModel> {
     if (args.kernel) {
       return Promise.resolve(args.kernel);
     }
     return manager.listRunning().then((sessions: Session.IModel[]) => {
       let options = {
-        name: 'New Console',
+        name,
         specs,
         sessions,
         preferredLanguage: args.preferredLanguage || '',
@@ -337,25 +337,27 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
     });
   }
 
+  let id = 0; // The ID counter for notebook panels.
+
   /**
    * Create a console for a given session.
    */
-  function createConsole(session: ISession): void {
+  function createConsole(session: ISession, name: string): void {
     let panel = new ConsolePanel({
       session,
       rendermime: rendermime.clone(),
       renderer: renderer
     });
-    count++;
     let displayName = displayNameMap[session.kernel.name];
-    let label = `Console ${count}`;
     let captionOptions: Private.ICaptionOptions = {
-      label, displayName,
+      label: name,
+      displayName,
       path: session.path,
       connected: new Date()
     };
-    panel.id = `console-${session.id}`;
-    panel.title.label = label;
+    // If the console panel does not have an ID, assign it one.
+    panel.id = panel.id || `console-${++id}`;
+    panel.title.label = name;
     panel.title.caption = Private.caption(captionOptions);
     panel.title.icon = `${LANDSCAPE_ICON_CLASS} ${CONSOLE_ICON_CLASS}`;
     panel.title.closable = true;
