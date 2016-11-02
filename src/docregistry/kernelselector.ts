@@ -332,6 +332,10 @@ function optionForName(name: string, displayName: string): HTMLOptionElement {
 function optionForSession(session: Session.IModel, displayName: string, maxLength: number): HTMLOptionElement {
   let option = document.createElement('option');
   let sessionName = session.notebook.path.split('/').pop();
+  const CONSOLE_REGEX = /^console-(\d)+-[0-9a-f]+$/;
+  if (CONSOLE_REGEX.test(sessionName)) {
+    sessionName = `Console ${sessionName.match(CONSOLE_REGEX)[1]}`;
+  }
   if (sessionName.length > maxLength) {
     sessionName = sessionName.slice(0, maxLength - 3) + '...';
   }

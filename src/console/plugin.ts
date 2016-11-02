@@ -6,6 +6,10 @@ import {
 } from 'jupyter-js-services';
 
 import {
+  find
+} from 'phosphor/lib/algorithm/searching';
+
+import {
   JSONObject
 } from 'phosphor/lib/algorithm/json';
 
@@ -89,14 +93,19 @@ const LANDSCAPE_ICON_CLASS = 'jp-MainAreaLandscapeIcon';
  */
 const CONSOLE_ICON_CLASS = 'jp-ImageConsole';
 
+/**
+ * A regex for console names.
+ */
+const CONSOLE_REGEX = /^console-(\d)+-[0-9a-f]+$/;
+
 
 /**
  * The interface for a start console.
  */
 interface ICreateConsoleArgs extends JSONObject {
-  sessionId?: string;
+  id?: string;
   path?: string;
-  kernel: Kernel.IModel;
+  kernel?: Kernel.IModel;
   preferredLanguage?: string;
 }
 
@@ -227,14 +236,22 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
   palette.addItem({ command, category });
   menu.addItem({ command });
 
+  let count = 0;
 
   command = 'console:create';
   commands.addCommand(command, {
     execute: (args: ICreateConsoleArgs) => {
+      args = args || {};
+
+      let name = `Console ${++count}`;
+
       // If we get a session, use it.
-      if (args.sessionId) {
-        return manager.connectTo(args.sessionId).then(session => {
+      if (args.id) {
+        return manager.connectTo(args.id).then(session => {
+          name = session.path.split('/').pop();
+          name = `Console ${name.match(CONSOLE_REGEX)[1]}`;
           createConsole(session);
+          manager.listRunning();  // Trigger a refresh.
           return session.id;
         });
       }
@@ -245,7 +262,7 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
       if (ContentsManager.extname(path)) {
         path = ContentsManager.dirname(path);
       }
-      path = `${path}/console-${utils.uuid()}`;
+      path = `${path}/console-${count}-${utils.uuid()}`;
 
       // Get the kernel model.
       return getKernel(args).then(kernel => {
@@ -260,6 +277,7 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
         };
         return manager.startNew(options).then(session => {
           createConsole(session);
+          manager.listRunning();  // Trigger a refresh.
           return session.id;
         });
       });
@@ -274,7 +292,28 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
         let widget = tracker.widgets.at(i);
         if (widget.content.session.id === id) {
           widget.content.inject(args['code'] as string);
+          break;
         }
+      }
+    }
+  });
+
+  command = 'console:open';
+  commands.addCommand(command, {
+    execute: (args: JSONObject) => {
+      let id = args['id'];
+      let consolePanel: ConsolePanel = null;
+      for (let i = 0; i < tracker.widgets.length; i++) {
+        let widget = tracker.widgets.at(i);
+        if (widget.content.session.id === id) {
+          consolePanel = widget;
+          break;
+        }
+      }
+      if (consolePanel) {
+        app.shell.activateMain(consolePanel.id);
+      } else {
+        app.commands.execute('console:create', { id });
       }
     }
   });
@@ -297,9 +336,6 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
       return selectKernel(options);
     });
   }
-
-
-  let count = 0;
 
   /**
    * Create a console for a given session.

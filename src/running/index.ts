@@ -102,6 +102,11 @@ const SHUTDOWN_BUTTON_CLASS = 'jp-RunningSessions-itemShutdown';
 const NOTEBOOK_ICON_CLASS = 'jp-mod-notebook';
 
 /**
+ * The class name added to a console icon.
+ */
+const CONSOLE_ICON_CLASS = 'jp-mod-console';
+
+/**
  * The class name added to a file icon.
  */
 const FILE_ICON_CLASS = 'jp-mod-file';
@@ -115,6 +120,12 @@ const TERMINAL_ICON_CLASS = 'jp-mod-terminal';
  * The duration of auto-refresh in ms.
  */
 const REFRESH_DURATION = 10000;
+
+/**
+ * A regex for console names.
+ */
+export
+const CONSOLE_REGEX = /^console-(\d)+-[0-9a-f]+$/;
 
 
 /**
@@ -360,7 +371,7 @@ class RunningSessions extends Widget {
     this._runningSessions = [];
     for (let session of models) {
       let name = session.notebook.path.split('/').pop();
-      if (name.indexOf('.') !== -1) {
+      if (name.indexOf('.') !== -1 || CONSOLE_REGEX.test(name)) {
         this._runningSessions.push(session);
       }
     }
@@ -680,16 +691,23 @@ namespace RunningSessions {
      */
     updateSessionNode(node: HTMLLIElement, model: Session.IModel, kernelName: string): void {
       let icon = findElement(node, ITEM_ICON_CLASS);
-      if (model.notebook.path.indexOf('.ipynb') !== -1) {
+      let path = model.notebook.path;
+      let name = path.split('/').pop();
+      if (name.indexOf('.ipynb') !== -1) {
         icon.className = `${ITEM_ICON_CLASS} ${NOTEBOOK_ICON_CLASS}`;
+      } else if (CONSOLE_REGEX.test(name)) {
+        icon.className = `${ITEM_ICON_CLASS} ${CONSOLE_ICON_CLASS}`;
+        path = `Console ${name.match(CONSOLE_REGEX)[1]}`;
       } else {
         icon.className = `${ITEM_ICON_CLASS} ${FILE_ICON_CLASS}`;
       }
       let label = findElement(node, ITEM_LABEL_CLASS);
-      label.textContent = model.notebook.path.split('/').pop();
-      label.title = model.notebook.path;
-      let kernel = findElement(node, KERNEL_NAME_CLASS);
-      kernel.textContent = kernelName;
+      label.textContent = path;
+      let title = (
+          `Path: ${model.notebook.path}\n` +
+          `Kernel: ${kernelName}`
+       );
+      label.title = title;
     }
   }
 
