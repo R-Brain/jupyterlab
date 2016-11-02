@@ -113,10 +113,11 @@ class ConsolePanel extends Panel {
       });
     }).then(value => {
       if (value && value.text === 'OK') {
-        return session.shutdown().then(()=>{
+        let dispose = () => {
           super.onCloseRequest(msg);
           this.dispose();
-        });
+        };
+        return session.shutdown().then(dispose).catch(dispose);
       }
     });
   }
