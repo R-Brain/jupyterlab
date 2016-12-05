@@ -6,3 +6,5 @@
 /// <reference path="../typings/path-posix/path-posix.d.ts"/>
 /// <reference path="../typings/url-parse/url-parse.d.ts"/>
 /// <reference path="../typings/xterm/xterm.d.ts"/>
+/// <reference path='../node_modules/monaco-editor-core/monaco.d.ts'/>
+/// <reference path='../typings/monaco/monaco.d.ts'/>

@@ -14,7 +14,8 @@
 @import '../apputils/index.css';
 @import '../about-extension/index.css';
 @import '../cells/index.css';
-@import '../codemirror/index.css';
+/* @import '../codemirror/index.css'; */
+@import '../monaco/index.css';
 @import '../completer/index.css';
 @import '../console/index.css';
 @import '../csvwidget/index.css';
