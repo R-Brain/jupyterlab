@@ -180,6 +180,7 @@ class MonacoModel implements CodeEditor.IModel {
     if (this._changeGuard) {
       return;
     }
+    this._changeGuard = true;
     const model = this.model;
     switch (change.type) {
       case 'set':
@@ -196,6 +197,7 @@ class MonacoModel implements CodeEditor.IModel {
           forceMoveMarkers: true
         }]);
     }
+    this._changeGuard = false;
   }
 
   /**
@@ -209,6 +211,9 @@ class MonacoModel implements CodeEditor.IModel {
    * Update a value with a editor model's value.
    */
   protected updateValue(): void {
+    if (this._changeGuard) {
+      return;
+    }
     this._changeGuard = true;
     this._value.text = this.model.getValue();
     this._changeGuard = false;
