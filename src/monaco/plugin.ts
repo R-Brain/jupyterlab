@@ -125,7 +125,7 @@ function activateEditorCommands(app: JupyterLab, tracker: IEditorTracker, mainMe
 
     menu.addItem({ type: 'separator' });
     menu.addItem({ type: 'submenu', menu: settings });
-    menu.addItem({ type: 'submenu', menu: themeMenu });
+    // menu.addItem({ type: 'submenu', menu: themeMenu });
 
     return menu;
   }
