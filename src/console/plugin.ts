@@ -376,8 +376,8 @@ function activateConsole(app: JupyterLab, services: IServiceManager, rendermime:
     // Update the caption of the tab when the kernel changes.
     panel.content.session.kernelChanged.connect(() => {
       let newName = panel.content.session.kernel.name;
-      name = specs.kernelspecs[name].display_name;
-      captionOptions.displayName = newName;
+      name = specs.kernelspecs[newName].display_name;
+      captionOptions.displayName = name;
       captionOptions.connected = new Date();
       captionOptions.executed = null;
       panel.title.caption = Private.caption(captionOptions);
