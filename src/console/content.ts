@@ -474,8 +474,10 @@ class ConsoleContent extends Widget {
    * Handle the `'keydown'` event for the widget.
    */
   private _evtKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === 13 && !this.prompt.editor.hasFocus()) {
-      this.prompt.editor.editor.focus();
+    const editor = this.prompt.editor.editor;
+    if (event.keyCode === 13 && !editor.hasFocus()) {
+      event.preventDefault();
+      editor.focus();
     }
   }
 
