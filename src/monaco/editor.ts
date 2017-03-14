@@ -19,11 +19,11 @@ import {
 
 import {
   IObservableString, ObservableString
-} from '../common/observablestring';
+} from '../coreutils';
 
 import {
   IChangedArgs
-} from '../common/interfaces';
+} from '../coreutils';
 
 import {
   CodeEditor
@@ -200,6 +200,15 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
+   * Explicitly blur the editor.
+   */
+  blur(): void {
+    const node = this._editor.getDomNode();
+    const textarea = node.querySelector("textarea") as HTMLElement;
+    textarea.blur();
+  }
+
+  /**
    * Repaint editor.
    */
   refresh(): void {
@@ -278,7 +287,8 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     const { left, top, height } = this._editor.getScrolledVisiblePosition(monacoPosition);
     const right = left;
     const bottom = top - height;
-    return { left, right, top, bottom };
+    const width = right - left;
+    return { left, right, top, bottom, height, width };
   }
 
   /**

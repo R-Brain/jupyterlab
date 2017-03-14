@@ -10,20 +10,12 @@ import {
 } from '../codeeditor/editor';
 
 import {
-  IChangedArgs
-} from '../common/interfaces';
-
-import {
   findMimeTypeForLanguageId, findLanguageIdForMimeType
 } from './language';
 
 import {
-  IObservableString, ObservableString
-} from '../common/observablestring';
-
-import {
-  IObservableMap, ObservableMap
-} from '../common/observablemap';
+  IObservableString, ObservableString, IObservableMap, ObservableMap, IChangedArgs
+} from '../coreutils';
 
 /**
  * An implementation of the code editor model using monaco.

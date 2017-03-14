@@ -14,16 +14,12 @@ import {
 } from '../codeeditor';
 
 import {
-  ICommandPalette
-} from '../commandpalette';
+  ICommandPalette, IMainMenu
+} from '../apputils';
 
 import {
   IEditorTracker
 } from '../editorwidget';
-
-import {
-  IMainMenu
-} from '../mainmenu';
 
 import {
   MonacoCodeEditorFactory, MonacoMimeTypeService, MonacoCodeEditor
