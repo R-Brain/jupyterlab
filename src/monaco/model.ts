@@ -2,8 +2,8 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  ISignal, clearSignalData, defineSignal
-} from 'phosphor/lib/core/signaling';
+  Signal, ISignal
+} from '@phosphor/signaling';
 
 import {
   CodeEditor
@@ -21,6 +21,10 @@ import {
   IObservableString, ObservableString
 } from '../common/observablestring';
 
+import {
+  IObservableMap, ObservableMap
+} from '../common/observablemap';
+
 /**
  * An implementation of the code editor model using monaco.
  */
@@ -29,7 +33,7 @@ class MonacoModel implements CodeEditor.IModel {
   /**
    * A signal emitted when a mimetype changes.
    */
-  readonly mimeTypeChanged: ISignal<this, IChangedArgs<string>>;
+  readonly mimeTypeChanged = new Signal<this, IChangedArgs<string>>(this);
 
   /**
    * Construct a new model.
@@ -48,7 +52,7 @@ class MonacoModel implements CodeEditor.IModel {
   /**
    * Get the selections for the model.
    */
-  get selections(): CodeEditor.ISelections {
+  get selections(): IObservableMap<CodeEditor.ITextSelection[]> {
     return this._selections;
   }
 
@@ -68,7 +72,7 @@ class MonacoModel implements CodeEditor.IModel {
     }
     this._isDisposed = true;
     this.disconnectModel();
-    clearSignalData(this);
+    Signal.clearData(this);
   }
 
   /**
@@ -239,15 +243,9 @@ class MonacoModel implements CodeEditor.IModel {
   protected _model: monaco.editor.IModel | null = null;
   protected _listeners: monaco.IDisposable[] = [];
   protected _changeGuard = false;
-  protected _selections = new CodeEditor.Selections();
+  protected _selections = new ObservableMap<CodeEditor.ITextSelection[]>();
 
 }
-
-/**
- * Registers signals for `MonacoModel`.
- */
-defineSignal(MonacoModel.prototype, 'valueChanged');
-defineSignal(MonacoModel.prototype, 'mimeTypeChanged');
 
 /**
  * A namespace for `MonacoModel`.

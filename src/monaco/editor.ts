@@ -3,19 +3,19 @@
 
 import {
   IDisposable, DisposableDelegate
-} from 'phosphor/lib/core/disposable';
+} from '@phosphor/disposable';
 
 import {
-  boxSizing as computeBoxSizing, IBoxSizing
-} from 'phosphor/lib/dom/sizing';
+  ISignal, Signal
+} from '@phosphor/signaling';
 
 import {
-  findIndex
-} from 'phosphor/lib/algorithm/searching';
+  ElementExt
+} from '@phosphor/domutils';
 
 import {
-  Vector
-} from 'phosphor/lib/collections/vector';
+  ArrayExt
+} from '@phosphor/algorithm';
 
 import {
   IObservableString, ObservableString
@@ -47,7 +47,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   /**
    * The selection style of this editor.
    */
-  readonly selectionStyle?: CodeEditor.ISelectionStyle;
+  readonly selectionStyle: CodeEditor.ISelectionStyle;
 
   /**
    * Whether an editor should be auto resized on a content change.
@@ -66,16 +66,27 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   minHeight?: number;
 
   /**
+   * A signal emitted when either the top or bottom edge is requested.
+   */
+  readonly edgeRequested = new Signal<this, CodeEditor.EdgeLocation>(this);
+
+  /**
+   * The DOM node that hosts the editor.
+   */
+  readonly host: HTMLElement;
+
+  /**
    * Construct a Monaco editor.
    */
   constructor(options: MonacoCodeEditor.IOptions) {
+    let host = this.host = options.host;
     this.uuid = options.uuid;
     this.selectionStyle = options.selectionStyle;
 
     this.autoSizing = (options.editorOptions && options.editorOptions.autoSizing) || false;
     this.minHeight = (options.editorOptions && options.editorOptions.minHeight) || -1;
 
-    this._editor = monaco.editor.create(options.domElement, options.editorOptions, options.editorServices);
+    this._editor = monaco.editor.create(host, options.editorOptions, options.editorServices);
     this._listeners.push(this.editor.onDidChangeModel(e => this._onDidChangeModel(e)));
     this._listeners.push(this.editor.onDidChangeConfiguration(e => this._onDidChangeConfiguration(e)));
     this._listeners.push(this.editor.onKeyDown(e => this._onKeyDown(e)));
@@ -101,7 +112,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     }
     this._isDisposed = true;
     this._model.dispose();
-    this._keydownHandlers.clear();
+    this._keydownHandlers.length = 0;
 
     while (this._listeners.length !== 0) {
       this._listeners.pop() !.dispose();
@@ -137,9 +148,9 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Handles a key down event.
    */
   protected _onKeyDown(event: monaco.IKeyboardEvent) {
-    if (!this._keydownHandlers.isEmpty && this.isOnKeyDownContext()) {
+    if (!(this._keydownHandlers.length < 1) && this.isOnKeyDownContext()) {
       const browserEvent = event.browserEvent;
-      const index = findIndex(this._keydownHandlers, handler => handler(this, browserEvent));
+      const index = ArrayExt.findFirstIndex(this._keydownHandlers, handler => handler(this, browserEvent));
       if (index !== -1) {
         event.preventDefault();
       }
@@ -196,6 +207,48 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
+   * Returns the content for the given line number.
+   */
+  getLine(line: number): string | undefined {
+    return this.model.getLine(line);
+  }
+
+  /**
+   * Find an offset for the given position.
+   */
+  getOffsetAt(position: CodeEditor.IPosition): number {
+    return this.model.getOffsetAt(position);
+  }
+
+  /**
+   * Find a position fot the given offset.
+   */
+  getPositionAt(offset: number): CodeEditor.IPosition {
+    return this.model.getPositionAt(offset);
+  }
+
+  /**
+   * Undo one edit (if any undo events are stored).
+   */
+  undo(): void {
+    this.model.undo();
+  }
+
+  /**
+   * Redo one undone edit.
+   */
+  redo(): void {
+    this.model.redo();
+  }
+
+  /**
+   * Clear the undo history.
+   */
+  clearHistory(): void {
+    this.model.clearHistory();
+  }
+
+  /**
    * Set the size of the editor in pixels.
    */
   setSize(dimension: CodeEditor.IDimension | null): void {
@@ -220,7 +273,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   /**
    * Get the window coordinates given a cursor position.
    */
-  getCoordinate(position: CodeEditor.IPosition): CodeEditor.ICoordinate {
+  getCoordinateForPosition(position: CodeEditor.IPosition): CodeEditor.ICoordinate {
     const monacoPosition = MonacoModel.toMonacoPosition(position);
     const { left, top, height } = this._editor.getScrolledVisiblePosition(monacoPosition);
     const right = left;
@@ -229,10 +282,36 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
+   * Get the cursor position given window coordinates.
+   *
+   * @param coordinate - The desired coordinate.
+   *
+   * @returns The position of the coordinates, or null if not
+   *   contained in the editor.
+   */
+  getPositionForCoordinate(coordinate: CodeEditor.ICoordinate): CodeEditor.IPosition | null {
+    const target = this.editor.getTargetAtClientPoint(coordinate.right, coordinate.top);
+    if (!target) {
+      return null;
+    }
+    const position = target.position;
+    const line = position.lineNumber;
+    const column = position.column;
+    return { line, column };
+  }
+
+  /**
    * Returns a model for this editor.
    */
   get model(): MonacoModel {
     return this._model;
+  }
+
+  /**
+   * Get the number of lines in the editor.
+   */
+  get lineCount(): number {
+    return this.model.lineCount;
   }
 
   /**
@@ -433,7 +512,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     if (dimension && dimension.width >= 0 && dimension.height >= 0) {
       return dimension;
     }
-    const boxSizing = computeBoxSizing(hostNode);
+    const boxSizing = ElementExt.boxSizing(hostNode);
 
     const width = (!dimension || dimension.width < 0) ?
       this.getWidth(hostNode, boxSizing) :
@@ -457,7 +536,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   /**
    * Computes a width based on the given box sizing.
    */
-  protected getWidth(hostNode: HTMLElement, boxSizing: IBoxSizing): number {
+  protected getWidth(hostNode: HTMLElement, boxSizing: ElementExt.IBoxSizing): number {
     return hostNode.offsetWidth - boxSizing.horizontalSum;
   }
 
@@ -467,14 +546,14 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * #### Notes
    * if auto sizing is enabled then computes a height based on the content size.
    */
-  protected getHeight(hostNode: HTMLElement, boxSizing: IBoxSizing): number {
+  protected getHeight(hostNode: HTMLElement, boxSizing: ElementExt.IBoxSizing): number {
     if (!this.autoSizing) {
       return hostNode.offsetHeight - boxSizing.verticalSum;
     }
     const configuration = this.editor.getConfiguration();
 
     const lineHeight = configuration.lineHeight;
-    const lineCount = this.editor.getModel().getLineCount();
+    const lineCount = this.lineCount;
     const contentHeight = lineHeight * lineCount;
 
     const horizontalScrollbarHeight = configuration.layoutInfo.horizontalScrollbarHeight;
@@ -495,9 +574,9 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * @returns A disposable that can be used to remove the handler.
    */
   addKeydownHandler(handler: CodeEditor.KeydownHandler): IDisposable {
-    this._keydownHandlers.pushBack(handler);
+    this._keydownHandlers.push(handler);
     return new DisposableDelegate(() => {
-      this._keydownHandlers.remove(handler);
+      ArrayExt.removeAllWhere(this._keydownHandlers, val => val === handler);
     });
   }
 
@@ -505,7 +584,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   protected _model: MonacoModel;
   protected _listeners: monaco.IDisposable[] = [];
   protected _editor: monaco.editor.IStandaloneCodeEditor;
-  protected _keydownHandlers = new Vector<CodeEditor.KeydownHandler>();
+  protected _keydownHandlers = new Array<CodeEditor.KeydownHandler>();
 
 }
 
@@ -546,11 +625,11 @@ namespace MonacoCodeEditor {
     /**
      * A selection style.
      */
-    readonly selectionStyle?: CodeEditor.ISelectionStyle;
+    readonly selectionStyle: CodeEditor.ISelectionStyle;
     /**
      * A dom element that is used as a container for a Monaco editor.
      */
-    domElement: HTMLElement;
+    host: HTMLElement;
     /**
      * Monaco editor options.
      */

@@ -6,7 +6,7 @@ import {
 } from '@jupyterlab/services/lib/utils';
 
 import {
-  IEditorFactory, CodeEditor
+  IEditorFactoryService, CodeEditor
 } from '../codeeditor';
 
 import {
@@ -17,15 +17,16 @@ import {
  * Monaco editor factory.
  */
 export
-class MonacoCodeEditorFactory implements IEditorFactory {
+class MonacoCodeEditorFactory implements IEditorFactoryService {
 
   /**
    * Create a new editor for inline code.
    */
-  newInlineEditor(host: HTMLElement, options: CodeEditor.IOptions): CodeEditor.IEditor {
-    return this.newEditor(host, {
+  newInlineEditor(options: CodeEditor.IOptions): CodeEditor.IEditor {
+    return Private.newEditor({
       uuid: uuid(),
-      domElement: host,
+      host: options.host,
+      selectionStyle: options.selectionStyle,
       editorOptions: {
         autoSizing: true,
         lineNumbers: 'off',
@@ -46,21 +47,25 @@ class MonacoCodeEditorFactory implements IEditorFactory {
   /**
    * Create a new editor for a full document.
    */
-  newDocumentEditor(host: HTMLElement, options: CodeEditor.IOptions): CodeEditor.IEditor {
-    return this.newEditor(host, {
+  newDocumentEditor(options: CodeEditor.IOptions): CodeEditor.IEditor {
+    return Private.newEditor({
       uuid: uuid(),
-      domElement: host,
+      host: options.host,
+      selectionStyle: options.selectionStyle,
       editorOptions: {
         wordWrap: true,
         folding: true
       }
     }, options);
   }
+}
 
+namespace Private {
   /**
    * Creates an editor and applies options.
    */
-  protected newEditor(host: HTMLElement, monacoOptions: MonacoCodeEditor.IOptions, options: CodeEditor.IOptions): CodeEditor.IEditor {
+  export
+  function newEditor(monacoOptions: MonacoCodeEditor.IOptions, options: CodeEditor.IOptions): CodeEditor.IEditor {
     const editor = new MonacoCodeEditor(monacoOptions);
     this.applyOptions(editor, options);
     return editor;
@@ -69,7 +74,8 @@ class MonacoCodeEditorFactory implements IEditorFactory {
   /**
    * Applies options.
    */
-  protected applyOptions(editor: MonacoCodeEditor, options: CodeEditor.IOptions): void {
+  export
+  function applyOptions(editor: MonacoCodeEditor, options: CodeEditor.IOptions): void {
     if (options.lineNumbers !== undefined) {
       editor.lineNumbers = options.lineNumbers;
     }
@@ -79,10 +85,5 @@ class MonacoCodeEditorFactory implements IEditorFactory {
     if (options.readOnly !== undefined) {
       editor.readOnly = options.readOnly;
     }
-    const extra = options.extra;
-    if (extra) {
-      editor.editor.updateOptions(extra);
-    }
   }
-
 }

@@ -3,7 +3,7 @@
 
 import {
   Menu
-} from 'phosphor/lib/ui/menu';
+} from '@phosphor/widgets';
 
 import {
   JupyterLab, JupyterLabPlugin
@@ -38,9 +38,9 @@ const servicesPlugin: JupyterLabPlugin<IEditorServices> = {
   id: IEditorServices.name,
   provides: IEditorServices,
   activate: (): IEditorServices => {
-    const factory = new MonacoCodeEditorFactory();
+    const factoryService = new MonacoCodeEditorFactory();
     const mimeTypeService = new MonacoMimeTypeService();
-    return { factory, mimeTypeService };
+    return { factoryService, mimeTypeService };
   }
 };
 
@@ -55,6 +55,12 @@ const commandsPlugin: JupyterLabPlugin<void> = {
   activate: activateEditorCommands,
   autoStart: true
 };
+
+/**
+ * Export the plugins as default.
+ */
+const plugins: JupyterLabPlugin<any>[] = [commandsPlugin, servicesPlugin];
+export default plugins;
 
 /**
  * The default theme.
@@ -85,15 +91,15 @@ const cmdIds = {
  * Set up the editor widget menu and commands.
  */
 function activateEditorCommands(app: JupyterLab, tracker: IEditorTracker, mainMenu: IMainMenu, palette: ICommandPalette): void {
-  let { commands, keymap } = app;
+  let { commands } = app;
 
   /**
    * Create a menu for the editor.
    */
   function createMenu(): Menu {
-    let settings = new Menu({ commands, keymap });
-    let themeMenu = new Menu({ commands, keymap });
-    let menu = new Menu({ commands, keymap });
+    let settings = new Menu({ commands });
+    let themeMenu = new Menu({ commands });
+    let menu = new Menu({ commands });
 
     menu.title.label = 'Editor';
     settings.title.label = 'Settings';
@@ -124,7 +130,7 @@ function activateEditorCommands(app: JupyterLab, tracker: IEditorTracker, mainMe
     }
 
     menu.addItem({ type: 'separator' });
-    menu.addItem({ type: 'submenu', menu: settings });
+    menu.addItem({ type: 'submenu', submenu: settings });
     // menu.addItem({ type: 'submenu', menu: themeMenu });
 
     return menu;
