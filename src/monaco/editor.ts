@@ -6,7 +6,7 @@ import {
 } from '@phosphor/disposable';
 
 import {
-  ISignal, Signal
+  Signal
 } from '@phosphor/signaling';
 
 import {
@@ -30,8 +30,8 @@ import {
 } from '../codeeditor';
 
 import {
-  MonacoModel
-} from './model';
+  findMimeTypeForLanguageId, findLanguageIdForMimeType
+} from './language';
 
 /**
  * Monaco code editor.
@@ -59,7 +59,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
 
   /**
    * A minimal height of an editor.
-   * 
+   *
    * #### Fixme
    * remove when https://github.com/Microsoft/monaco-editor/issues/103 is resolved
    */
@@ -79,21 +79,36 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Construct a Monaco editor.
    */
   constructor(options: MonacoCodeEditor.IOptions) {
-    let host = this.host = options.host;
+    const host = this.host = options.host;
+    const model = this._model = options.model;
     this.uuid = options.uuid;
     this.selectionStyle = options.selectionStyle;
 
-    this.autoSizing = (options.editorOptions && options.editorOptions.autoSizing) || false;
-    this.minHeight = (options.editorOptions && options.editorOptions.minHeight) || -1;
+    let editorOptions = options.editorOptions || {};
+    this.autoSizing = editorOptions.autoSizing || false;
+    this.minHeight = editorOptions.minHeight || -1;
 
-    this._editor = monaco.editor.create(host, options.editorOptions, options.editorServices);
-    this._listeners.push(this.editor.onDidChangeModel(e => this._onDidChangeModel(e)));
-    this._listeners.push(this.editor.onDidChangeConfiguration(e => this._onDidChangeConfiguration(e)));
-    this._listeners.push(this.editor.onKeyDown(e => this._onKeyDown(e)));
+    editorOptions.value = model.value.text;
+    editorOptions.language = findLanguageIdForMimeType(model.mimeType);
+    const editor = this._editor = monaco.editor.create(host, options.editorOptions, options.editorServices);
 
-    this._model = options.monacoModel || new MonacoModel();
+    if (options.lineNumbers !== undefined) {
+      this.lineNumbers = options.lineNumbers;
+    }
+    if (options.wordWrap !== undefined) {
+      this.wordWrap = options.wordWrap;
+    }
+    if (options.readOnly !== undefined) {
+      this.readOnly = options.readOnly;
+    }
+
+    this._listeners.push(editor.onDidChangeModel(e => this._onDidChangeModel(e)));
+    this._listeners.push(editor.onDidChangeConfiguration(e => this._onDidChangeConfiguration(e)));
+    this._listeners.push(editor.onKeyDown(e => this._onKeyDown(e)));
+
     this._model.value.changed.connect(this._onValueChanged, this);
-    this._model.model = this._editor.getModel();
+    this._model.mimeTypeChanged.connect(this._onMimeTypeChanged, this);
+    this.monacoModel = editor.getModel();
   }
 
   /**
@@ -111,7 +126,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
       return;
     }
     this._isDisposed = true;
-    this._model.dispose();
+    this.disconnectMonacoModel();
     this._keydownHandlers.length = 0;
 
     while (this._listeners.length !== 0) {
@@ -124,7 +139,40 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Handles an editor model change event.
    */
   protected _onDidChangeModel(event: monaco.editor.IModelChangedEvent) {
-    this._model.model = this.editor.getModel();
+    this.monacoModel = this.editor.getModel();
+  }
+
+  /**
+   * The underlying monaco editor model.
+   */
+  get monacoModel(): monaco.editor.IModel {
+    if (this._monacoModel) {
+      return this._monacoModel;
+    }
+    throw new Error('monaco editor model has not been initialized');
+  }
+  set monacoModel(model: monaco.editor.IModel) {
+    this.disconnectMonacoModel();
+    this._monacoModel = model;
+    this.connectMonacoModel();
+  }
+
+  protected disconnectMonacoModel(): void {
+    if (this._monacoModel) {
+      while (this._monacoModelListeners.length !== 0) {
+        this._monacoModelListeners.pop() !.dispose();
+      }
+      this._monacoModel = null;
+    }
+  }
+
+  protected connectMonacoModel(): void {
+    const model = this.monacoModel;
+    this._monacoModelListeners.push(model.onDidChangeLanguage(event => this._onDidChangeLanguage(event)));
+    this._monacoModelListeners.push(model.onDidChangeContent(event => this._onDidContentChanged(event)));
+    this.updateValue();
+    const mimeType = findMimeTypeForLanguageId(model.getModeId());
+    this.updateMimeType(mimeType);
   }
 
   /**
@@ -138,10 +186,51 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
-   * Handles a value change event.
+   * Handles a model value change event.
    */
-  protected _onValueChanged(value: IObservableString, args: ObservableString.IChangedArgs) {
+  protected _onValueChanged(value: IObservableString, change: ObservableString.IChangedArgs) {
+    this.doHandleModelValueChanged(change);
     this.autoresize();
+  }
+
+  protected doHandleModelValueChanged(change: ObservableString.IChangedArgs) {
+    if (this._changeGuard) {
+      return;
+    }
+    this._changeGuard = true;
+    const model = this.monacoModel;
+    switch (change.type) {
+      case 'set':
+        model.setValue(change.value);
+        break;
+      default:
+        const start = model.getPositionAt(change.start);
+        const end = model.getPositionAt(change.end);
+        const range = new monaco.Range(start.lineNumber, start.column, end.lineNumber, end.column);
+        const text = change.value;
+        model.applyEdits([{
+          identifier: null!,
+          range, text,
+          forceMoveMarkers: true
+        }]);
+    }
+    this._changeGuard = false;
+  }
+
+  /**
+   * Handles a mime type change event.
+   */
+  protected _onMimeTypeChanged(sender: CodeEditor.IModel, change: IChangedArgs<string>) {
+    if (this._mimeTypeChangeGuard) {
+      return;
+    }
+    this._mimeTypeChangeGuard = true;
+    const newValue = change.newValue;
+    if (newValue) {
+      const newLanguage = findLanguageIdForMimeType(newValue);
+      monaco.editor.setModelLanguage(this.monacoModel, newLanguage);
+    }
+    this._mimeTypeChangeGuard = false;
   }
 
   /**
@@ -159,10 +248,10 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
 
   /**
    * Whether key down event can be propagated to `this.onKeyDown` handler.
-   * 
+   *
    * #### Returns
    * - if a suggest widget visible then returns `true`
-   * - otherwise `false`  
+   * - otherwise `false`
    */
   protected isOnKeyDownContext() {
     return !this.isSuggestWidgetVisible();
@@ -204,7 +293,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    */
   blur(): void {
     const node = this._editor.getDomNode();
-    const textarea = node.querySelector("textarea") as HTMLElement;
+    const textarea = node.querySelector('textarea') as HTMLElement;
     textarea.blur();
   }
 
@@ -219,42 +308,43 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Returns the content for the given line number.
    */
   getLine(line: number): string | undefined {
-    return this.model.getLine(line);
+    return this.monacoModel.getLineContent(line + 1);
   }
 
   /**
    * Find an offset for the given position.
    */
   getOffsetAt(position: CodeEditor.IPosition): number {
-    return this.model.getOffsetAt(position);
+    return this.monacoModel.getOffsetAt(MonacoCodeEditor.toMonacoPosition(position));
   }
 
   /**
    * Find a position fot the given offset.
    */
   getPositionAt(offset: number): CodeEditor.IPosition {
-    return this.model.getPositionAt(offset);
+    return MonacoCodeEditor.toPosition(this.monacoModel.getPositionAt(offset));
   }
 
   /**
    * Undo one edit (if any undo events are stored).
    */
   undo(): void {
-    this.model.undo();
+    this.monacoModel.undo();
   }
 
   /**
    * Redo one undone edit.
    */
   redo(): void {
-    this.model.redo();
+    this.monacoModel.redo();
   }
 
   /**
    * Clear the undo history.
    */
   clearHistory(): void {
-    this.model.clearHistory();
+    // Reset the model state by setting the same value again
+    this.monacoModel.setValue(this.monacoModel.getValue());
   }
 
   /**
@@ -268,7 +358,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Reveal the given position in the editor.
    */
   revealPosition(pos: CodeEditor.IPosition): void {
-    this.editor.revealPositionInCenter(MonacoModel.toMonacoPosition(pos));
+    this.editor.revealPositionInCenter(MonacoCodeEditor.toMonacoPosition(pos));
   }
 
   /**
@@ -283,7 +373,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Get the window coordinates given a cursor position.
    */
   getCoordinateForPosition(position: CodeEditor.IPosition): CodeEditor.ICoordinate {
-    const monacoPosition = MonacoModel.toMonacoPosition(position);
+    const monacoPosition = MonacoCodeEditor.toMonacoPosition(position);
     const { left, top, height } = this._editor.getScrolledVisiblePosition(monacoPosition);
     const right = left;
     const bottom = top - height;
@@ -311,9 +401,9 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
-   * Returns a model for this editor.
+   * Returns the model used by this editor.
    */
-  get model(): MonacoModel {
+  get model(): CodeEditor.IModel {
     return this._model;
   }
 
@@ -321,7 +411,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Get the number of lines in the editor.
    */
   get lineCount(): number {
-    return this.model.lineCount;
+    return this.monacoModel.getLineCount();
   }
 
   /**
@@ -398,7 +488,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Set the primary position of the cursor. This will remove any secondary cursors.
    */
   setCursorPosition(position: CodeEditor.IPosition): void {
-    this._editor.setPosition(MonacoModel.toMonacoPosition(position));
+    this._editor.setPosition(MonacoCodeEditor.toMonacoPosition(position));
   };
 
   /**
@@ -444,7 +534,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
 
   /**
    * Converts a monaco selection to a valid editor selection.
-   * 
+   *
    * #### Notes
    * A valid selection belongs to the total model range.
    */
@@ -459,8 +549,8 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   protected toSelection(selection: monaco.Range): CodeEditor.ITextSelection {
     return {
       uuid: this.uuid,
-      start: MonacoModel.toPosition(selection.getStartPosition()),
-      end: MonacoModel.toPosition(selection.getEndPosition()),
+      start: MonacoCodeEditor.toPosition(selection.getStartPosition()),
+      end: MonacoCodeEditor.toPosition(selection.getEndPosition()),
       style: this.selectionStyle
     };
   }
@@ -479,24 +569,24 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Converts a selection to a monaco selection.
    */
   protected toMonacoSelection(range: CodeEditor.IRange): monaco.Selection {
-    const start = MonacoModel.toMonacoPosition(range.start);
-    const end = MonacoModel.toMonacoPosition(range.end);
+    const start = MonacoCodeEditor.toMonacoPosition(range.start);
+    const end = MonacoCodeEditor.toMonacoPosition(range.end);
     return new monaco.Selection(start.lineNumber, start.column, end.lineNumber, end.column);
   }
 
   /**
    * Converts a monaco position to a valida code editor position.
-   * 
+   *
    * #### Notes
    * A valid position belongs to the total model range.
    */
   protected toValidPosition(position: monaco.IPosition): CodeEditor.IPosition {
     const validPosition = this._editor.getModel().validatePosition(position);
-    return MonacoModel.toPosition(validPosition);
+    return MonacoCodeEditor.toPosition(validPosition);
   }
 
   /**
-   * Auto resizes the editor acording to the content. 
+   * Auto resizes the editor acording to the content.
    */
   protected autoresize(): void {
     if (this.autoSizing) {
@@ -552,7 +642,7 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
 
   /**
    * Computes a height based on the given box sizing.
-   * 
+   *
    * #### Notes
    * if auto sizing is enabled then computes a height based on the content size.
    */
@@ -590,8 +680,51 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     });
   }
 
+  /**
+   * Handles a model language change event.
+   */
+  protected _onDidChangeLanguage(event: monaco.editor.IModelLanguageChangedEvent) {
+    const mimeType = findMimeTypeForLanguageId(event.newLanguage);
+    this.updateMimeType(mimeType);
+  }
+
+  /**
+   * Handles a content change event.
+   */
+  protected _onDidContentChanged(event: monaco.editor.IModelContentChangedEvent2) {
+    this.updateValue();
+  }
+
+  /**
+   * Update a value with a monaco editor model's value.
+   */
+  protected updateValue(): void {
+    if (this._changeGuard) {
+      return;
+    }
+    this._changeGuard = true;
+    this.model.value.text = this.monacoModel.getValue();
+    this._changeGuard = false;
+  }
+
+  /**
+   * Update a mime type with a monaco editor model's mime type.
+   */
+  protected updateMimeType(mimeType: string): void {
+    if (this._mimeTypeChangeGuard) {
+      return;
+    }
+    this._mimeTypeChangeGuard = true;
+    this.model.mimeType = mimeType;
+    this._mimeTypeChangeGuard = false;
+  }
+
   protected _isDisposed = false;
-  protected _model: MonacoModel;
+  protected _model: CodeEditor.IModel;
+  protected _monacoModel: monaco.editor.IModel;
+  protected _monacoModelListeners: monaco.IDisposable[] = [];
+  protected _changeGuard = false;
+  protected _mimeTypeChangeGuard = false;
   protected _listeners: monaco.IDisposable[] = [];
   protected _editor: monaco.editor.IStandaloneCodeEditor;
   protected _keydownHandlers = new Array<CodeEditor.KeydownHandler>();
@@ -617,7 +750,7 @@ namespace MonacoCodeEditor {
     autoSizing?: boolean;
     /**
      * A minimal height of an editor.
-     * 
+     *
      * #### Fixme
      * remove when https://github.com/Microsoft/monaco-editor/issues/103 is resolved
      */
@@ -627,19 +760,7 @@ namespace MonacoCodeEditor {
    * An initialization options for a monaco code editor.
    */
   export
-    interface IOptions {
-    /**
-     * The uuid of an editor.
-     */
-    uuid: string;
-    /**
-     * A selection style.
-     */
-    readonly selectionStyle: CodeEditor.ISelectionStyle;
-    /**
-     * A dom element that is used as a container for a Monaco editor.
-     */
-    host: HTMLElement;
+    interface IOptions extends CodeEditor.IOptions {
     /**
      * Monaco editor options.
      */
@@ -648,9 +769,25 @@ namespace MonacoCodeEditor {
      * Monaco editor services.
      */
     editorServices?: monaco.editor.IEditorOverrideServices;
-    /**
-     * A Monaco based editor model.
-     */
-    monacoModel?: MonacoModel;
+  }
+  /**
+   * Converts a code editor position to a monaco position.
+   */
+  export
+    function toMonacoPosition(position: CodeEditor.IPosition): monaco.IPosition {
+    return {
+      lineNumber: position.line + 1,
+      column: position.column + 1
+    };
+  }
+  /**
+   * Converts a monaco position to a code editor position.
+   */
+  export
+    function toPosition(position: monaco.Position): CodeEditor.IPosition {
+    return {
+      line: position.lineNumber - 1,
+      column: position.column - 1
+    };
   }
 }
