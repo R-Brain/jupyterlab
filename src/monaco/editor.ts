@@ -106,9 +106,9 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     this._listeners.push(editor.onDidChangeConfiguration(e => this._onDidChangeConfiguration(e)));
     this._listeners.push(editor.onKeyDown(e => this._onKeyDown(e)));
 
-    this._model.value.changed.connect(this._onValueChanged, this);
-    this._model.mimeTypeChanged.connect(this._onMimeTypeChanged, this);
-    this.monacoModel = editor.getModel();
+    model.value.changed.connect(this._onValueChanged, this);
+    model.mimeTypeChanged.connect(this._onMimeTypeChanged, this);
+    this.connectMonacoModel();
   }
 
   /**
@@ -126,6 +126,10 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
       return;
     }
     this._isDisposed = true;
+    if (this.model) {
+      this.model.value.changed.disconnect(this._onValueChanged, this);
+      this.model.mimeTypeChanged.disconnect(this._onMimeTypeChanged, this);
+    }
     this.disconnectMonacoModel();
     this._keydownHandlers.length = 0;
 
@@ -139,30 +143,23 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
    * Handles an editor model change event.
    */
   protected _onDidChangeModel(event: monaco.editor.IModelChangedEvent) {
-    this.monacoModel = this.editor.getModel();
+    this.disconnectMonacoModel();
+    this.connectMonacoModel();
   }
 
   /**
    * The underlying monaco editor model.
    */
   get monacoModel(): monaco.editor.IModel {
-    if (this._monacoModel) {
-      return this._monacoModel;
+    if (this._editor && this._editor.getModel()) {
+      return this._editor.getModel();
     }
     throw new Error('monaco editor model has not been initialized');
   }
-  set monacoModel(model: monaco.editor.IModel) {
-    this.disconnectMonacoModel();
-    this._monacoModel = model;
-    this.connectMonacoModel();
-  }
 
   protected disconnectMonacoModel(): void {
-    if (this._monacoModel) {
-      while (this._monacoModelListeners.length !== 0) {
-        this._monacoModelListeners.pop() !.dispose();
-      }
-      this._monacoModel = null;
+    while (this._monacoModelListeners.length !== 0) {
+      this._monacoModelListeners.pop() !.dispose();
     }
   }
 
@@ -721,7 +718,6 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
 
   protected _isDisposed = false;
   protected _model: CodeEditor.IModel;
-  protected _monacoModel: monaco.editor.IModel;
   protected _monacoModelListeners: monaco.IDisposable[] = [];
   protected _changeGuard = false;
   protected _mimeTypeChangeGuard = false;
