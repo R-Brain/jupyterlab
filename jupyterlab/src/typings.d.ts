@@ -6,3 +6,4 @@
 /// <reference path="../../packages/coreutils/typings/url-parse/url-parse.d.ts"/>
 /// <reference path="../../packages/rendermime/typings/ansi_up/ansi_up.d.ts"/>
 /// <reference path="../../packages/terminal/typings/xterm/xterm.d.ts"/>
+/// <reference path="../../packages/monaco/typings/monaco/monaco.d.ts"/>

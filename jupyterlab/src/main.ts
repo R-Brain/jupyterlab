@@ -16,8 +16,8 @@ import * as applicationExtension
 import * as apputilsExtension
   from '@jupyterlab/apputils-extension';
 
-import * as codemirrorExtension
-  from '@jupyterlab/codemirror-extension';
+import * as monacoExtension
+  from '@jupyterlab/monaco-extension';
 
 import * as completerExtension
   from '@jupyterlab/completer-extension';
@@ -90,7 +90,7 @@ const mods: JupyterLab.IPluginModule[] = [
   aboutExtension,
   applicationExtension,
   apputilsExtension,
-  codemirrorExtension,
+  monacoExtension,
   completerExtension,
   consoleExtension,
   csvwidgetExtension,

@@ -11,6 +11,9 @@ var webpack = require('webpack');
 var path = require('path');
 var fs = require('fs-extra');
 
+var path = require('path');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var monacoEditorPath = '../node_modules/monaco-editor-core/dev/vs';
 
 // Get the git description.
 try {
@@ -89,5 +92,18 @@ module.exports = {
     fs: 'empty'
   },
   bail: true,
-  devtool: 'source-map'
+  devtool: 'source-map',
+  resolve: {
+    alias: {
+      'vs': path.resolve(monacoEditorPath)
+    }
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      {
+        from: monacoEditorPath,
+        to: 'vs',
+      }
+    ])
+  ]
 }
