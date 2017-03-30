@@ -2,11 +2,11 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  utils
-} from '@jupyterlab/services';
+  uuid as getUUID
+} from '@jupyterlab/services/lib/utils';
 
 import {
-  IEditorFactoryService, CodeEditor
+  IEditorFactoryService
 } from '@jupyterlab/codeeditor';
 
 import {
@@ -22,12 +22,9 @@ class MonacoCodeEditorFactory implements IEditorFactoryService {
   /**
    * Create a new editor for inline code.
    */
-  newInlineEditor(options: CodeEditor.IOptions): CodeEditor.IEditor {
-    const uuid = options.uuid || utils.uuid();
-    return new MonacoCodeEditor({
-      ...options,
-      uuid,
-      editorOptions: {
+  newInlineEditor(options: MonacoCodeEditor.IOptions): MonacoCodeEditor {
+    const uuid = options.uuid || getUUID();
+    const editorOptions: MonacoCodeEditor.IEditorConstructionOptions = {
         autoSizing: true,
         lineNumbers: 'off',
         lineNumbersMinChars: 4,
@@ -39,23 +36,34 @@ class MonacoCodeEditorFactory implements IEditorFactoryService {
           handleMouseWheel: false
         },
         contextmenu: false,
-        scrollBeyondLastLine: false
-      }
+        scrollBeyondLastLine: false,
+        ...options.editorOptions
+    };
+    return this.newEditor({
+      ...options,
+      uuid,
+      editorOptions
     });
   }
 
   /**
    * Create a new editor for a full document.
    */
-  newDocumentEditor(options: CodeEditor.IOptions): CodeEditor.IEditor {
-    const uuid = options.uuid || utils.uuid();
-    return new MonacoCodeEditor({
+  newDocumentEditor(options: MonacoCodeEditor.IOptions): MonacoCodeEditor {
+    const uuid = options.uuid || getUUID();
+    const editorOptions: MonacoCodeEditor.IEditorConstructionOptions = {
+      wordWrap: true,
+      folding: true,
+      ...options.editorOptions
+    };
+    return this.newEditor({
       ...options,
       uuid,
-      editorOptions: {
-        wordWrap: true,
-        folding: true
-      }
+      editorOptions
     });
+  }
+
+  protected newEditor(options: MonacoCodeEditor.IOptions): MonacoCodeEditor {
+    return new MonacoCodeEditor(options);
   }
 }
