@@ -298,6 +298,13 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
   }
 
   /**
+   * Resize the editor to fit its host node.
+   */
+  resizeToFit(): void {
+    this.autoresize();
+  }
+
+  /**
    * Returns the content for the given line number.
    */
   getLine(line: number): string | undefined {
