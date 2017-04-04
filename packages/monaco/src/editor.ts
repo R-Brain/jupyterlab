@@ -30,6 +30,16 @@ import {
 } from './language';
 
 /**
+ * The key code for the up arrow key.
+ */
+const UP_ARROW = 38;
+
+/**
+ * The key code for the down arrow key.
+ */
+const DOWN_ARROW = 40;
+
+/**
  * Monaco code editor.
  */
 export
@@ -105,6 +115,30 @@ class MonacoCodeEditor implements CodeEditor.IEditor {
     model.value.changed.connect(this._onValueChanged, this);
     model.mimeTypeChanged.connect(this._onMimeTypeChanged, this);
     this.connectMonacoModel();
+    this.registerEdgeRequestedHandler();
+  }
+
+  protected registerEdgeRequestedHandler(): void {
+    this.addKeydownHandler((editor: CodeEditor.IEditor, event: KeyboardEvent) => {
+      let cursorPosition = this.getCursorPosition();
+      let line = cursorPosition.line;
+      let ch = cursorPosition.column;
+      if (line === 0 && ch === 0 && event.keyCode === UP_ARROW) {
+          if (!event.shiftKey) {
+            this.edgeRequested.emit('top');
+          }
+          return false;
+      }
+
+      let lastLine = this.lineCount - 1;
+      let lastCh = this.getLine(this.lineCount - 1).length;
+      if (line === lastLine && ch === lastCh && event.keyCode === DOWN_ARROW) {
+        if (!event.shiftKey) {
+          this.edgeRequested.emit('bottom');
+        }
+      }
+      return false;
+    });
   }
 
   /**
