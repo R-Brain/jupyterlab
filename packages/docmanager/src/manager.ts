@@ -297,8 +297,6 @@ class DocumentManager implements IDisposable {
       factory,
       path
     });
-    /*
-    // temporarily disabled auto-saving till there is no such feature, see https://github.com/jupyterlab/jupyterlab/issues/1809
     let handler = new SaveHandler({
       context,
       manager: this._serviceManager
@@ -307,7 +305,6 @@ class DocumentManager implements IDisposable {
     context.ready.then(() => {
       handler.start();
     });
-    */
     context.disposed.connect(this._onContextDisposed, this);
     this._contexts.push(context);
     return context;
