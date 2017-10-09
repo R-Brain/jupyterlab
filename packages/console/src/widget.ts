@@ -10,7 +10,7 @@ import {
 } from '@phosphor/algorithm';
 
 import {
-  Message, sendMessage
+  Message
 } from '@phosphor/messaging';
 
 import {
@@ -22,7 +22,7 @@ import {
 } from '@phosphor/widgets';
 
 import {
-  Widget, WidgetMessage
+  Widget
 } from '@phosphor/widgets';
 
 import {
@@ -397,7 +397,6 @@ class CodeConsole extends Widget {
    * Handle `'activate-request'` messages.
    */
   protected onActivateRequest(msg: Message): void {
-    sendMessage(this.prompt.editor, WidgetMessage.ActivateRequest);
     this.prompt.editor.focus();
     this.update();
   }
