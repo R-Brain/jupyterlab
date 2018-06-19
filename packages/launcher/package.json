@@ -13,14 +13,14 @@
     "lib": "lib/"
   },
   "dependencies": {
-    "@jupyterlab/apputils": "^0.1.1",
+    "@jupyterlab/apputils": "~0.1.1",
     "@phosphor/algorithm": "1.0.0",
     "@phosphor/coreutils": "1.0.0",
     "@phosphor/disposable": "1.0.0",
     "@phosphor/virtualdom": "1.0.0"
   },
   "devDependencies": {
-    "rimraf": "^2.5.2",
+    "rimraf": "~2.5.2",
     "typescript": "2.2.1"
   },
   "scripts": {

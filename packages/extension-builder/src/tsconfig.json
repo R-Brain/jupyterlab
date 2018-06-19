@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true,
+    "declaration": true, "skipLibCheck": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
     "lib": ["dom", "es5", "es2015.promise"],

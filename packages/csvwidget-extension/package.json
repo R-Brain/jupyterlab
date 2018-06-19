@@ -12,13 +12,13 @@
     "lib": "lib/"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.1.1",
-    "@jupyterlab/apputils": "^0.1.1",
-    "@jupyterlab/csvwidget": "^0.1.4",
-    "@jupyterlab/docregistry": "^0.1.4"
+    "@jupyterlab/application": "~0.1.1",
+    "@jupyterlab/apputils": "~0.1.1",
+    "@jupyterlab/csvwidget": "~0.1.4",
+    "@jupyterlab/docregistry": "~0.1.4"
   },
   "devDependencies": {
-    "rimraf": "^2.5.2",
+    "rimraf": "~2.5.2",
     "typescript": "2.2.1"
   },
   "scripts": {

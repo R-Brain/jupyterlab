@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "declaration": true,
+    "declaration": true, "skipLibCheck": true,
     "noImplicitAny": true,
     "noEmitOnError": true,
     "noUnusedLocals": true,
@@ -11,5 +11,6 @@
     "lib": ["ES5", "ES2015.Promise", "DOM"],
     "types": ["node"]
   },
-  "include": ["src/*"]
+  "include": ["src/*"],
+  "exclude": ["**/node_modules/*"]
 }

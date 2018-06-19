@@ -2,7 +2,7 @@
   "private": true,
   "name": "browser-example",
   "dependencies": {
-    "es6-promise": "^3.2.1",
+    "es6-promise": "~3.2.1",
     "@jupyterlab/services": "file:../.."
   },
   "scripts": {
@@ -12,7 +12,7 @@
     "update": "rimraf node_modules/@jupyterlab/services && npm install"
   },
   "devDependencies": {
-    "rimraf": "^2.5.2",
-    "webpack": "^1.12.14"
+    "rimraf": "~2.5.2",
+    "webpack": "~1.12.14"
   }
 }
